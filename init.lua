@@ -49,7 +49,7 @@ u.bindHyperSubmodeActions(
         j = 'Mail', -- [J]unk
         k = 'Kitty',
         l = 'Reminders', -- To-do [l]ist
-        [';'] = 'Calendar', -- No mnemonic binding :'(
+        [';'] = 'Notion Calendar', -- No mnemonic binding :'(
         n = 'Notion',
         m = 'Telegram', -- [M]essaging
     }, function(appName)
