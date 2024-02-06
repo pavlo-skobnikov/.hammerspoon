@@ -53,9 +53,9 @@ Key bindings for quick application launching/focusing:
 - `h`: Hammerspoon
 - `j`: Mail
 - `k`: Kitty
-- `l`: Reminders
-- `';'`: Calendar
-- `n`: Notion
+- `l`: Todoist
+- `';'`: MacOS Calendar
+- `n`: Obsidian
 - `m`: Telegram
 
 ### Internet Browsing Profiles (`Hyper + b`)
