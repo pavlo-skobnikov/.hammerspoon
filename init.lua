@@ -126,19 +126,22 @@ local listOfApplicationsBindModalSpec = hs.fnutils.map({
   { key = 'd', appName = 'Docker Desktop' },
   { key = 'i', appName = 'IntelliJ IDEA' },
   { key = 'k', appName = 'Kitty' },
-  { key = 'n', appName = 'NordPass' },
-  { key = 'o', appName = 'Obsidian' },
-  { key = 'l', appName = 'Todoist' },
-  { key = 'c', appName = 'Calendar' },
+  { key = 'p', appName = 'NordPass', description = 'Password manager' },
+  { key = 'n', appName = 'Notion' },
+  { key = 'l', appName = 'Todoist', description = 'To-do list' },
+  { key = 'c', appName = 'Notion Calendar' },
   { key = 'm', appName = 'Mail' },
-  { key = 'w', appName = 'Microsoft Teams (work or school)' },
+  { key = 'w', appName = 'Microsoft Teams (work or school)', description = '[Work] Microsoft Teams' },
   { key = 's', appName = 'Slack' },
   { key = 't', appName = 'Telegram' },
+  { key = 'z', appName = 'zoom.us', description = 'Zoom' },
 }, function(mapping)
+  local description = mapping.description and mapping.description or mapping.appName
+
   return {
     modal = applicationsModal,
     key = mapping.key,
-    description = mapping.appName,
+    description = description,
     action = function() hs.application.launchOrFocus(mapping.appName) end,
     exitModalAfterAction = true,
   }
@@ -328,7 +331,7 @@ u.bindModalMapping {
 }
 
 ----------------------------------------------------------------------------------------------------
--------------------------------- Sub-`Leader` modal bindings ----------------------------------------
+------------------------------- Sub-`Leader` modal bindings ----------------------------------------
 ----------------------------------------------------------------------------------------------------
 
 local listOfLeaderModalBindSpec = hs.fnutils.map({
