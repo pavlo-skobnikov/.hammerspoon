@@ -1,120 +1,362 @@
 local u = require 'util'
 
-hs.window.animationDuration = 0 -- Disable animations, default value = 0.2
+-- Disable animations, default value = 0.2
+hs.window.animationDuration = 0
 
---- `Hyper` sub-layer key bindings
-u.bindHyperSubmodeActions(
-  'v',
-  'Views',
-  hs.fnutils.map({
-    -- Occupy 1/2 of a screen
-    h = { 0, 0, 0.5, 1 }, -- <
-    l = { 0.5, 0, 0.5, 1 }, -- >
-    j = { 0, 0.5, 1, 0.5 }, -- v
-    k = { 0, 0, 1, 0.5 }, -- ^
-    -- Occupy 1/3 of a screen
-    n = { 0, 0, 0.33, 1 }, -- Left
-    m = { 0.33, 0, 0.33, 1 }, -- Middle
-    [','] = { 0.66, 0, 0.33, 1 }, -- Right
-    -- Occupy 1/4 of a screen
-    y = { 0, 0, 0.5, 0.5 }, -- ⌜
-    u = { 0, 0.5, 0.5, 0.5 }, -- ⌞
-    i = { 0.5, 0.5, 0.5, 0.5 }, -- ⌟
-    o = { 0.5, 0, 0.5, 0.5 }, -- ⌝
-    p = function() hs.window.focusedWindow():maximize() end, -- Maximize
-    -- Center
-    [';'] = function() hs.window.focusedWindow():centerOnScreen() end,
-  }, function(windowUnitOrFunction)
-    local action = u.ternary(
-      type(windowUnitOrFunction) == 'function',
-      windowUnitOrFunction,
-      function() hs.window.focusedWindow():moveToUnit(windowUnitOrFunction) end
-    )
+----------------------------------------------------------------------------------------------------
+------------------------------------ Root `Leader` modal -------------------------------------------
+----------------------------------------------------------------------------------------------------
 
-    return u.wrapModalExit(action)
-  end)
+local leaderModal = u.createModal {
+  modifiers = 'ctrl',
+  key = '\\',
+  modalName = 'Leader Modal',
+}
+
+----------------------------------------------------------------------------------------------------
+------------------------------------- `Browser` modal ----------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+local browserModal = u.createModal {
+  modalName = 'Browser Modal',
+}
+
+local listOfBrowserModalBindSpec = hs.fnutils.map({
+  { key = 'h', profileName = 'Incognito' },
+  { key = 'i', profileName = 'Innovecs' },
+  { key = 'p', profileName = 'Personal' },
+  { key = 'm', profileName = 'Miro' },
+}, function(mapping)
+  return {
+    modal = browserModal,
+    key = mapping.key,
+    description = '[' .. mapping.profileName .. '] profile',
+    action = function() u.launchOrFocusChromeProfileWindow(mapping.profileName) end,
+    exitModalAfterAction = true,
+  }
+end)
+
+hs.fnutils.each(listOfBrowserModalBindSpec, u.bindModalMapping)
+
+local browserModalBindings = u.modalBindSpecToString(listOfBrowserModalBindSpec)
+
+u.bindModalMapping {
+  modal = leaderModal,
+  key = 'b',
+  description = 'Browser',
+  action = function()
+    browserModal:enter()
+    u.alert(browserModalBindings)
+  end,
+  exitModalAfterAction = true,
+}
+
+----------------------------------------------------------------------------------------------------
+------------------------------------- `Window` modal -----------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+local viewsModal = u.createModal {
+  modalName = 'Views Modal',
+}
+
+local listOfViewsModalBindSpec = hs.fnutils.map({
+  -- Occupy 1/2 of a screen
+  { key = 'h', description = '1/2 Left', windowUnit = { 0, 0, 0.5, 1 } },
+  { key = 'l', description = '1/2 Right', windowUnit = { 0.5, 0, 0.5, 1 } },
+  { key = 'j', description = '1/2 Bottom', windowUnit = { 0, 0.5, 1, 0.5 } },
+  { key = 'k', description = '1/2 Top', windowUnit = { 0, 0, 1, 0.5 } },
+  -- Occupy 1/3 of a screen
+  { key = 'a', description = '1/3 Left', windowUnit = { 0, 0, 0.33, 1 } },
+  { key = 's', description = '1/3 Middle', windowUnit = { 0.33, 0, 0.33, 1 } },
+  { key = 'd', description = '1/3 Right', windowUnit = { 0.66, 0, 0.33, 1 } },
+  -- Occupy 1/4 of a screen
+  { key = 'y', description = '⌜', windowUnit = { 0, 0, 0.5, 0.5 } },
+  { key = 'u', description = '⌞', windowUnit = { 0, 0.5, 0.5, 0.5 } },
+  { key = 'i', description = '⌟', windowUnit = { 0.5, 0.5, 0.5, 0.5 } },
+  { key = 'o', description = '⌝', windowUnit = { 0.5, 0, 0.5, 0.5 } },
+  -- Maximize
+  { key = 'm', description = 'Maximize', action = function() hs.window.focusedWindow():maximize() end },
+  -- Center
+  { key = 'c', description = 'Center', action = function() hs.window.focusedWindow():centerOnScreen() end },
+}, function(mapping)
+  local action
+
+  if mapping.windowUnit then
+    action = function() hs.window.focusedWindow():moveToUnit(mapping.windowUnit) end
+  else
+    action = mapping.action
+  end
+
+  return {
+    modal = viewsModal,
+    key = mapping.key,
+    description = mapping.description,
+    action = action,
+    exitModalAfterAction = true,
+  }
+end)
+
+hs.fnutils.each(listOfViewsModalBindSpec, u.bindModalMapping)
+
+local viewsModalBindings = u.modalBindSpecToString(listOfViewsModalBindSpec)
+
+u.bindModalMapping {
+  modal = leaderModal,
+  key = 'v',
+  description = 'Views',
+  action = function()
+    viewsModal:enter()
+    u.alert(viewsModalBindings)
+  end,
+  exitModalAfterAction = true,
+}
+
+----------------------------------------------------------------------------------------------------
+---------------------------------- `Applications` modal --------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+local applicationsModal = u.createModal {
+  modalName = 'Applications Modal',
+}
+
+local listOfApplicationsBindModalSpec = hs.fnutils.map({
+  { key = 'f', appName = 'Finder' },
+  { key = 'h', appName = 'Hammerspoon' },
+  { key = 'y', appName = 'Youtube Music' },
+  { key = 'd', appName = 'Docker Desktop' },
+  { key = 'i', appName = 'IntelliJ IDEA' },
+  { key = 'k', appName = 'Kitty' },
+  { key = 'n', appName = 'NordPass' },
+  { key = 'o', appName = 'Obsidian' },
+  { key = 'l', appName = 'Todoist' },
+  { key = 'c', appName = 'Calendar' },
+  { key = 'm', appName = 'Mail' },
+  { key = 'w', appName = 'Microsoft Teams (work or school)' },
+  { key = 's', appName = 'Slack' },
+  { key = 't', appName = 'Telegram' },
+}, function(mapping)
+  return {
+    modal = applicationsModal,
+    key = mapping.key,
+    description = mapping.appName,
+    action = function() hs.application.launchOrFocus(mapping.appName) end,
+    exitModalAfterAction = true,
+  }
+end)
+
+hs.fnutils.each(listOfApplicationsBindModalSpec, u.bindModalMapping)
+
+local applicationsModalBindings = u.modalBindSpecToString(listOfApplicationsBindModalSpec)
+
+u.bindModalMapping {
+  modal = leaderModal,
+  key = 'a',
+  description = 'Applications',
+  action = function()
+    applicationsModal:enter()
+    u.alert(applicationsModalBindings)
+  end,
+  exitModalAfterAction = true,
+}
+
+----------------------------------------------------------------------------------------------------
+---------------------------------- `Utilities` modal -----------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+local utilitiesModal = u.createModal {
+  modalName = 'Utilities Modal',
+}
+
+local listOfUtilitiesBindModalSpec = hs.fnutils.map({
+  { key = 'p', description = 'Previous track', systemKey = 'PREVIOUS' },
+  { key = 'n', description = 'Next track', systemKey = 'NEXT' },
+  { key = 's', description = 'Sound down', systemKey = 'SOUND_DOWN' },
+  { key = 'w', description = 'Sound up', systemKey = 'SOUND_UP' },
+  { key = 'm', description = 'Mute', action = function() u.sendSystemKey 'MUTE' end },
+  { key = 'f', description = 'Fast forward', systemKey = 'FAST' },
+  { key = 'r', description = 'Rewind', systemKey = 'REWIND' },
+  { key = 'y', description = 'Play', action = function() u.sendSystemKey 'PLAY' end },
+  { key = 'b', description = 'Brightness down', systemKey = 'BRIGHTNESS_DOWN' },
+  { key = 'g', description = 'Brightness up', systemKey = 'BRIGHTNESS_UP' },
+  { key = 'l', description = 'Lock screen', action = hs.caffeinate.lockScreen },
+}, function(mapping)
+  local action
+  local exitModalAfterAction
+
+  if mapping.systemKey then
+    action = function() u.sendSystemKey(mapping.systemKey) end
+    exitModalAfterAction = false
+  else
+    action = mapping.action
+    exitModalAfterAction = true
+  end
+
+  return {
+    modal = utilitiesModal,
+    key = mapping.key,
+    description = mapping.description,
+    action = action,
+    exitModalAfterAction = exitModalAfterAction,
+  }
+end)
+
+hs.fnutils.each(listOfUtilitiesBindModalSpec, u.bindModalMapping)
+
+local utilitiesModalBindings = u.modalBindSpecToString(listOfUtilitiesBindModalSpec)
+
+u.bindModalMapping {
+  modal = leaderModal,
+  key = 'u',
+  description = 'Utilities',
+  action = function()
+    utilitiesModal:enter()
+    u.alert(utilitiesModalBindings)
+  end,
+  exitModalAfterAction = true,
+}
+
+----------------------------------------------------------------------------------------------------
+--------------------------------- `Execute` modal --------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+local executeModal = u.createModal {
+  modalName = 'Execute',
+}
+
+local listOfExecuteModalBindSpec = hs.fnutils.map(
+  {
+    {
+      key = 'k',
+      description = 'Kill the frontmost app',
+      action = function() hs.application.frontmostApplication():kill() end,
+    },
+    { key = 'r', description = 'Reload Hammerspoon config', action = hs.reload },
+    {
+      key = 'e',
+      description = 'Emoji picker',
+      action = function() hs.eventtap.keyStroke({ 'ctrl', 'cmd' }, 'space') end,
+    },
+  },
+  function(mapping)
+    return {
+      modal = executeModal,
+      key = mapping.key,
+      description = mapping.description,
+      action = mapping.action,
+      exitModalAfterAction = true,
+    }
+  end
 )
 
-u.bindHyperSubmodeActions(
-  's',
-  'Switch Apps',
-  hs.fnutils.map({
-    y = 'Youtube Music',
-    u = 'Slack', -- Work [u]pdates
-    i = 'IntelliJ IDEA',
-    o = 'Finder', -- [O]pen
-    p = 'NordPass', -- [P]asswords
-    h = 'Hammerspoon',
-    j = 'Mail', -- [J]unk
-    k = 'Kitty',
-    l = 'Todoist', -- To-do [l]ist
-    [';'] = 'Calendar', -- No mnemonic binding :'(
-    n = 'Obsidian', -- [N]otes
-    m = 'Telegram', -- [M]essaging
-  }, function(appName)
-    return u.wrapModalExit(function() hs.application.launchOrFocus(appName) end)
-  end)
-)
+hs.fnutils.each(listOfExecuteModalBindSpec, u.bindModalMapping)
 
-u.bindHyperSubmodeActions(
-  'b',
-  'Browse Internet',
-  hs.fnutils.map({
-    h = 'Incognito', -- [H]idden
-    i = 'Innovecs',
-    p = 'Personal',
-    m = 'Miro',
-  }, function(profileName)
-    return u.wrapModalExit(function() u.launchOrFocusChromeProfileWindow(profileName) end)
-  end)
-)
+local executeModalBindings = u.modalBindSpecToString(listOfExecuteModalBindSpec)
 
-u.bindHyperSubmodeActions(
-  'c',
-  'Controls',
-  hs.fnutils.map({
-    h = 'PREVIOUS',
-    j = 'SOUND_DOWN',
-    k = 'SOUND_UP',
-    l = 'NEXT',
-    [';'] = function() u.sendSystemKey 'MUTE' end,
-    u = 'BRIGHTNESS_DOWN',
-    i = 'BRIGHTNESS_UP',
-    o = 'FAST',
-    y = 'REWIND',
-    p = hs.caffeinate.lockScreen,
-    ['.'] = function() u.sendSystemKey 'PLAY' end,
-  }, function(systemKeyOrFunction)
-    return u.ternary(
-      type(systemKeyOrFunction) == 'function',
-      u.wrapModalExit(systemKeyOrFunction),
-      function() u.sendSystemKey(systemKeyOrFunction) end
-    )
-  end)
-)
+u.bindModalMapping {
+  modal = leaderModal,
+  key = 'e',
+  description = 'Execute',
+  action = function()
+    executeModal:enter()
+    u.alert(executeModalBindings)
+  end,
+  exitModalAfterAction = true,
+}
 
-u.bindHyperSubmodeActions(
-  'z',
-  'Zap Screen',
-  hs.fnutils.map({
-    u = { { 'cmd', 'shift' }, '3' },
-    i = { { 'ctrl', 'cmd', 'shift' }, '3' },
-    j = { { 'cmd', 'shift' }, '4' },
-    k = { { 'ctrl', 'cmd', 'shift' }, '4' },
-    o = { { 'cmd', 'shift' }, '5' },
-  }, function(modsAndKey)
-    return u.wrapModalExit(function() u.sendKey(modsAndKey[1], modsAndKey[2]) end)
-  end)
-)
+----------------------------------------------------------------------------------------------------
+---------------------------------- `Screenshot bindings --------------------------------------------
+----------------------------------------------------------------------------------------------------
 
-u.bindHyperSubmodeActions(
-  'x',
-  'Execute',
-  hs.fnutils.map({
-    k = function() hs.application.frontmostApplication():kill() end, -- [K]ill
-    l = function() hs.reload() end, -- [L]oad Hammerspoon configuration
-    m = function() hs.eventtap.keyStroke({ 'ctrl', 'cmd' }, 'space') end, -- Open e[m]oji picker
-  }, function(action) return u.wrapModalExit(action) end)
-)
+local screenshotModal = u.createModal {
+  modalName = 'Screenshot',
+}
+
+local listOfScreenshotModalBindSpec = hs.fnutils.map({
+  {
+    mappedKey = 'u',
+    modifiers = { 'cmd', 'shift' },
+    executeKey = '3',
+    description = 'Capture screen and save to desktop',
+  },
+  {
+    mappedKey = 'i',
+    modifiers = { 'cmd', 'shift' },
+    executeKey = '4',
+    description = 'Capture area and save to desktop',
+  },
+  {
+    mappedKey = 'j',
+    modifiers = { 'ctrl', 'cmd', 'shift' },
+    executeKey = '3',
+    description = 'Capture screen and copy',
+  },
+  {
+    mappedKey = 'k',
+    modifiers = { 'ctrl', 'cmd', 'shift' },
+    executeKey = '4',
+    description = 'Capture area and copy',
+  },
+  {
+    mappedKey = 'r',
+    modifiers = { 'cmd', 'shift' },
+    executeKey = '5',
+    description = 'Record screen',
+  },
+}, function(mapping)
+  return {
+    modal = screenshotModal,
+    key = mapping.mappedKey,
+    description = mapping.description,
+    action = function() u.sendKey(mapping.modifiers, mapping.executeKey) end,
+    exitModalAfterAction = true,
+  }
+end)
+
+hs.fnutils.each(listOfScreenshotModalBindSpec, u.bindModalMapping)
+
+local screenshotModalBindings = u.modalBindSpecToString(listOfScreenshotModalBindSpec)
+
+u.bindModalMapping {
+  modal = leaderModal,
+  key = 's',
+  description = 'Screenshot',
+  action = function()
+    screenshotModal:enter()
+    u.alert(screenshotModalBindings)
+  end,
+  exitModalAfterAction = true,
+}
+
+----------------------------------------------------------------------------------------------------
+-------------------------------- Sub-`Leader` modal bindings ----------------------------------------
+----------------------------------------------------------------------------------------------------
+
+local listOfLeaderModalBindSpec = hs.fnutils.map({
+  { key = 'b', description = '+browser', modal = browserModal, modalBindings = browserModalBindings },
+  { key = 'v', description = '+views', modal = viewsModal, modalBindings = viewsModalBindings },
+  { key = 'a', description = '+applications', modal = applicationsModal, modalBindings = applicationsModalBindings },
+  { key = 'u', description = '+utilities', modal = utilitiesModal, modalBindings = utilitiesModalBindings },
+  { key = 'e', description = '+execute', modal = executeModal, modalBindings = executeModalBindings },
+  { key = 's', description = '+screenshot', modal = screenshotModal, modalBindings = screenshotModalBindings },
+}, function(modal)
+  return {
+    modal = leaderModal,
+    key = modal.key,
+    description = modal.description,
+    action = function()
+      modal.modal:enter()
+      u.alert(modal.modalBindings)
+    end,
+    exitModalAfterAction = true,
+  }
+end)
+
+hs.fnutils.each(listOfLeaderModalBindSpec, u.bindModalMapping)
+
+local leaderModalBindings = u.modalBindSpecToString(listOfLeaderModalBindSpec)
+
+function leaderModal:entered() u.alert(leaderModalBindings) end
+
+----------------------------------------------------------------------------------------------------
 
 hs.alert.show 'Configuration reloaded'
