@@ -14,44 +14,6 @@ local leaderModal = u.createModal {
 }
 
 ----------------------------------------------------------------------------------------------------
-------------------------------------- `Browser` modal ----------------------------------------------
-----------------------------------------------------------------------------------------------------
-
-local browserModal = u.createModal {
-  modalName = 'Browser Modal',
-}
-
-local listOfBrowserModalBindSpec = hs.fnutils.map({
-  { key = 'h', profileName = 'Incognito' },
-  { key = 'i', profileName = 'Innovecs' },
-  { key = 'p', profileName = 'Personal' },
-  { key = 'm', profileName = 'Miro' },
-}, function(mapping)
-  return {
-    modal = browserModal,
-    key = mapping.key,
-    description = '[' .. mapping.profileName .. '] profile',
-    action = function() u.launchOrFocusChromeProfileWindow(mapping.profileName) end,
-    exitModalAfterAction = true,
-  }
-end)
-
-hs.fnutils.each(listOfBrowserModalBindSpec, u.bindModalMapping)
-
-local browserModalBindings = u.modalBindSpecToString(listOfBrowserModalBindSpec)
-
-u.bindModalMapping {
-  modal = leaderModal,
-  key = 'b',
-  description = 'Browser',
-  action = function()
-    browserModal:enter()
-    u.alert(browserModalBindings)
-  end,
-  exitModalAfterAction = true,
-}
-
-----------------------------------------------------------------------------------------------------
 ------------------------------------- `Window` modal -----------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
@@ -120,6 +82,7 @@ local applicationsModal = u.createModal {
 }
 
 local listOfApplicationsBindModalSpec = hs.fnutils.map({
+  { key = 'a', appName = 'Arc' },
   { key = 'f', appName = 'Finder' },
   { key = 'h', appName = 'Hammerspoon' },
   { key = 'y', appName = 'Youtube Music' },
@@ -239,6 +202,14 @@ local listOfExecuteModalBindSpec = hs.fnutils.map(
       description = 'Emoji picker',
       action = function() hs.eventtap.keyStroke({ 'ctrl', 'cmd' }, 'space') end,
     },
+    {
+      key = 'o',
+      description = 'Open Arc bar',
+      action = function()
+        hs.application.launchOrFocus 'Arc'
+        hs.eventtap.keyStroke({ 'cmd' }, 'l')
+      end,
+    },
   },
   function(mapping)
     return {
@@ -335,12 +306,11 @@ u.bindModalMapping {
 ----------------------------------------------------------------------------------------------------
 
 local listOfLeaderModalBindSpec = hs.fnutils.map({
-  { key = 'b', description = '+browser', modal = browserModal, modalBindings = browserModalBindings },
-  { key = 'v', description = '+views', modal = viewsModal, modalBindings = viewsModalBindings },
   { key = 'a', description = '+applications', modal = applicationsModal, modalBindings = applicationsModalBindings },
-  { key = 'u', description = '+utilities', modal = utilitiesModal, modalBindings = utilitiesModalBindings },
   { key = 'e', description = '+execute', modal = executeModal, modalBindings = executeModalBindings },
   { key = 's', description = '+screenshot', modal = screenshotModal, modalBindings = screenshotModalBindings },
+  { key = 'u', description = '+utilities', modal = utilitiesModal, modalBindings = utilitiesModalBindings },
+  { key = 'v', description = '+views', modal = viewsModal, modalBindings = viewsModalBindings },
 }, function(modal)
   return {
     modal = leaderModal,
