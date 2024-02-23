@@ -83,20 +83,20 @@ local applicationsModal = u.createModal {
 
 local listOfApplicationsBindModalSpec = hs.fnutils.map({
   { key = 'a', appName = 'Arc' },
+  { key = 'c', appName = 'Notion Calendar', description = 'Calendar'},
+  { key = 'd', appName = 'Docker Desktop', description = 'Docker' },
   { key = 'f', appName = 'Finder' },
   { key = 'h', appName = 'Hammerspoon' },
-  { key = 'y', appName = 'Youtube Music' },
-  { key = 'd', appName = 'Docker Desktop' },
-  { key = 'i', appName = 'IntelliJ IDEA' },
+  { key = 'i', appName = 'IntelliJ IDEA', description = 'IDEA' },
   { key = 'k', appName = 'Kitty' },
-  { key = 'p', appName = 'NordPass', description = 'Password manager' },
-  { key = 'n', appName = 'Notion' },
-  { key = 'l', appName = 'Todoist', description = 'To-do list' },
-  { key = 'c', appName = 'Notion Calendar' },
+  { key = 'l', appName = 'Todoist', description = 'List to-dos' },
   { key = 'm', appName = 'Mail' },
-  { key = 'w', appName = 'Microsoft Teams (work or school)', description = '[Work] Microsoft Teams' },
+  { key = 'n', appName = 'Notion' },
+  { key = 'p', appName = 'NordPass', description = 'Passwords' },
   { key = 's', appName = 'Slack' },
   { key = 't', appName = 'Telegram' },
+  { key = 'w', appName = 'Microsoft Teams (work or school)', description = 'Work messenger' },
+  { key = 'y', appName = 'Youtube Music' },
   { key = 'z', appName = 'zoom.us', description = 'Zoom' },
 }, function(mapping)
   local description = mapping.description and mapping.description or mapping.appName
@@ -134,17 +134,17 @@ local utilitiesModal = u.createModal {
 }
 
 local listOfUtilitiesBindModalSpec = hs.fnutils.map({
-  { key = 'p', description = 'Previous track', systemKey = 'PREVIOUS' },
-  { key = 'n', description = 'Next track', systemKey = 'NEXT' },
-  { key = 's', description = 'Sound down', systemKey = 'SOUND_DOWN' },
-  { key = 'w', description = 'Sound up', systemKey = 'SOUND_UP' },
-  { key = 'm', description = 'Mute', action = function() u.sendSystemKey 'MUTE' end },
-  { key = 'f', description = 'Fast forward', systemKey = 'FAST' },
-  { key = 'r', description = 'Rewind', systemKey = 'REWIND' },
-  { key = 'y', description = 'Play', action = function() u.sendSystemKey 'PLAY' end },
   { key = 'b', description = 'Brightness down', systemKey = 'BRIGHTNESS_DOWN' },
+  { key = 'f', description = 'Fast forward', systemKey = 'FAST' },
   { key = 'g', description = 'Brightness up', systemKey = 'BRIGHTNESS_UP' },
   { key = 'l', description = 'Lock screen', action = hs.caffeinate.lockScreen },
+  { key = 'm', description = 'Mute', action = function() u.sendSystemKey 'MUTE' end },
+  { key = 'n', description = 'Next track', systemKey = 'NEXT' },
+  { key = 'p', description = 'Previous track', systemKey = 'PREVIOUS' },
+  { key = 'r', description = 'Rewind', systemKey = 'REWIND' },
+  { key = 's', description = 'Sound down', systemKey = 'SOUND_DOWN' },
+  { key = 'w', description = 'Sound up', systemKey = 'SOUND_UP' },
+  { key = 'y', description = 'Play', action = function() u.sendSystemKey 'PLAY' end },
 }, function(mapping)
   local action
   local exitModalAfterAction
@@ -247,12 +247,6 @@ local screenshotModal = u.createModal {
 
 local listOfScreenshotModalBindSpec = hs.fnutils.map({
   {
-    mappedKey = 'u',
-    modifiers = { 'cmd', 'shift' },
-    executeKey = '3',
-    description = 'Capture screen and save to desktop',
-  },
-  {
     mappedKey = 'i',
     modifiers = { 'cmd', 'shift' },
     executeKey = '4',
@@ -275,6 +269,12 @@ local listOfScreenshotModalBindSpec = hs.fnutils.map({
     modifiers = { 'cmd', 'shift' },
     executeKey = '5',
     description = 'Record screen',
+  },
+  {
+    mappedKey = 'u',
+    modifiers = { 'cmd', 'shift' },
+    executeKey = '3',
+    description = 'Capture screen and save to desktop',
   },
 }, function(mapping)
   return {
