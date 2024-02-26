@@ -83,7 +83,7 @@ local applicationsModal = u.createModal {
 
 local listOfApplicationsBindModalSpec = hs.fnutils.map({
   { key = 'a', appName = 'Arc' },
-  { key = 'c', appName = 'Notion Calendar', description = 'Calendar'},
+  { key = 'c', appName = 'Notion Calendar', description = 'Calendar' },
   { key = 'd', appName = 'Docker Desktop', description = 'Docker' },
   { key = 'f', appName = 'Finder' },
   { key = 'h', appName = 'Hammerspoon' },
