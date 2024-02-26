@@ -210,6 +210,19 @@ local listOfExecuteModalBindSpec = hs.fnutils.map(
         hs.eventtap.keyStroke({ 'cmd' }, 'l')
       end,
     },
+    {
+      key = 'n',
+      description = 'Create a Notion note',
+      action = function()
+        hs.application.launchOrFocus 'Notion'
+        hs.eventtap.keyStroke({ 'cmd' }, 'n')
+      end,
+    },
+    {
+      key = 't',
+      description = 'Create a Todoist task',
+      action = function() hs.eventtap.keyStroke({ 'alt' }, 'space') end,
+    },
   },
   function(mapping)
     return {
