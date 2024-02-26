@@ -229,7 +229,7 @@ local listOfExecuteModalBindSpec = hs.fnutils.map(
     {
       key = 's',
       description = 'Search all notes',
-      action = function() hs.eventtap.keyStroke({ 'ctrl', 'shift' }, 'k') end,
+      action = function() hs.eventtap.keyStroke({ 'cmd', 'shift' }, 'k') end,
     },
     {
       key = 't',
