@@ -96,7 +96,6 @@ local listOfApplicationsBindModalSpec = hs.fnutils.map({
   { key = 's', appName = 'Slack' },
   { key = 't', appName = 'Telegram' },
   { key = 'w', appName = 'Microsoft Teams (work or school)', description = 'Work messenger' },
-  { key = 'y', appName = 'Youtube Music' },
   { key = 'z', appName = 'zoom.us', description = 'Zoom' },
 }, function(mapping)
   local description = mapping.description and mapping.description or mapping.appName
