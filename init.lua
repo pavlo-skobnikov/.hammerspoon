@@ -204,23 +204,37 @@ local listOfExecuteModalBindSpec = hs.fnutils.map(
     },
     {
       key = 'o',
-      description = 'Open Arc bar',
+      description = 'Open browser command bar',
       action = function()
         hs.application.launchOrFocus 'Arc'
         hs.eventtap.keyStroke({ 'cmd' }, 'l')
       end,
     },
     {
+      key = 'b',
+      description = 'New browser tab',
+      action = function()
+        hs.application.launchOrFocus 'Arc'
+        hs.eventtap.keyStroke({ 'cmd' }, 't')
+      end,
+    },
+    {
       key = 'n',
-      description = 'Create a Notion note',
+      description = 'Create a note',
       action = function()
         hs.application.launchOrFocus 'Notion'
+        hs.timer.usleep(200 * 1000) -- Sleep for 200 ms to give Notion time to open
         hs.eventtap.keyStroke({ 'cmd' }, 'n')
       end,
     },
     {
+      key = 's',
+      description = 'Search all notes',
+      action = function() hs.eventtap.keyStroke({ 'ctrl', 'shift' }, 'k') end,
+    },
+    {
       key = 't',
-      description = 'Create a Todoist task',
+      description = 'Create a task',
       action = function() hs.eventtap.keyStroke({ 'alt' }, 'space') end,
     },
   },
