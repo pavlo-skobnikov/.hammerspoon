@@ -1028,42 +1028,17 @@ local screenshotModal = u.createModal {
 }
 
 local listOfScreenshotModalBindSpec = hs.fnutils.map({
-  {
-    mappedKey = 'i',
-    modifiers = { 'cmd', 'shift' },
-    executeKey = '4',
-    description = 'Capture area and save to desktop',
-  },
-  {
-    mappedKey = 'j',
-    modifiers = { 'ctrl', 'cmd', 'shift' },
-    executeKey = '3',
-    description = 'Capture screen and copy',
-  },
-  {
-    mappedKey = 'k',
-    modifiers = { 'ctrl', 'cmd', 'shift' },
-    executeKey = '4',
-    description = 'Capture area and copy',
-  },
-  {
-    mappedKey = 'r',
-    modifiers = { 'cmd', 'shift' },
-    executeKey = '5',
-    description = 'Record screen',
-  },
-  {
-    mappedKey = 'u',
-    modifiers = { 'cmd', 'shift' },
-    executeKey = '3',
-    description = 'Capture screen and save to desktop',
-  },
+  { key = 'u', mods = { 'cmd', 'shift' }, executeKey = '3', desc = 'Screen to desktop' },
+  { key = 'i', mods = { 'cmd', 'shift' }, executeKey = '4', desc = 'Area to desktop' },
+  { key = 'j', mods = { 'ctrl', 'cmd', 'shift' }, executeKey = '3', desc = 'Screen and copy' },
+  { key = 'k', mods = { 'ctrl', 'cmd', 'shift' }, executeKey = '4', desc = 'Area and copy' },
+  { key = 'r', mods = { 'cmd', 'shift' }, executeKey = '5', desc = 'Record screen' },
 }, function(mapping)
   return {
     modal = screenshotModal,
-    key = mapping.mappedKey,
-    description = mapping.description,
-    action = function() u.sendKey(mapping.modifiers, mapping.executeKey) end,
+    key = mapping.key,
+    description = mapping.desc,
+    action = function() u.sendKey(mapping.mods, mapping.executeKey) end,
     exitModalAfterAction = true,
   }
 end)
