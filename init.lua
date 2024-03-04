@@ -264,6 +264,162 @@ u.bindModalMapping {
 }
 
 ----------------------------------------------------------------------------------------------------
+---------------------------------- `Browser` modal -------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+local browserModal = u.createModal {
+  modalName = 'Execute',
+}
+
+local listOfBrowserModalBindSpec = hs.fnutils.map(
+  {
+    {
+      key = 't',
+      description = 'Browse in current workspace',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = 't',
+          applicationName = 'Arc',
+        }
+      end,
+    },
+    {
+      key = 'c',
+      description = 'Open command bar',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = 'l',
+          applicationName = 'Arc',
+        }
+      end,
+    },
+    {
+      key = 'n',
+      description = 'New small tab for quick search',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'alt', 'cmd' },
+          key = 'n',
+          applicationName = 'Arc',
+        }
+      end,
+    },
+    {
+      key = 'v',
+      description = 'Create vertical split',
+      action = function()
+        hs.application.launchOrFocus 'Arc'
+
+        u.sendKeyToApplication {
+          modifiers = { 'ctrl', 'shift' },
+          key = '=',
+          interval = 5,
+          applicationName = 'Arc',
+        }
+      end,
+    },
+    -- Immediately switch to the specified workspace and open a new tab.
+    -- The sleep is necessary to give the workspace switcher time to open.
+    -- The delay for the key stroke is flaky, so we need to manually give it a little time to work.
+    {
+      key = 'i',
+      description = 'Search/open tab in [Innovecs] workspace',
+      action = function()
+        hs.application.launchOrFocus 'Arc'
+
+        u.sleep(10)
+
+        u.sendKeyToApplication {
+          modifiers = { 'ctrl' },
+          key = '3',
+          applicationName = 'Arc',
+        }
+
+        u.sleep(200)
+
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = 't',
+          applicationName = 'Arc',
+        }
+      end,
+    },
+    {
+      key = 'm',
+      description = 'Search/open tab in [Miro] workspace',
+      action = function()
+        hs.application.launchOrFocus 'Arc'
+
+        u.sleep(10)
+
+        u.sendKeyToApplication {
+          modifiers = { 'ctrl' },
+          key = '2',
+          applicationName = 'Arc',
+        }
+
+        u.sleep(200)
+
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = 't',
+          applicationName = 'Arc',
+        }
+      end,
+    },
+    {
+      key = 'p',
+      description = 'Search/open tab in [Personal] workspace',
+      action = function()
+        hs.application.launchOrFocus 'Arc'
+
+        u.sleep(10)
+
+        u.sendKeyToApplication {
+          modifiers = { 'ctrl' },
+          key = '1',
+          applicationName = 'Arc',
+        }
+
+        u.sleep(200)
+
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = 't',
+          applicationName = 'Arc',
+        }
+      end,
+    },
+  },
+  function(mapping)
+    return {
+      modal = browserModal,
+      key = mapping.key,
+      description = mapping.description,
+      action = mapping.action,
+      exitModalAfterAction = true,
+    }
+  end
+)
+
+hs.fnutils.each(listOfBrowserModalBindSpec, u.bindModalMapping)
+
+local browserModalBindings = u.modalBindSpecToString(listOfBrowserModalBindSpec)
+
+u.bindModalMapping {
+  modal = leaderModal,
+  key = 'b',
+  description = 'Browser',
+  action = function()
+    browserModal:enter()
+    u.alert(browserModalBindings)
+  end,
+  exitModalAfterAction = true,
+}
+
+----------------------------------------------------------------------------------------------------
 ---------------------------------- `Screenshot bindings --------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
@@ -334,6 +490,7 @@ u.bindModalMapping {
 local listOfLeaderModalBindSpec = hs.fnutils.map({
   { key = 'a', description = '+applications', modal = applicationsModal, modalBindings = applicationsModalBindings },
   { key = 'e', description = '+execute', modal = executeModal, modalBindings = executeModalBindings },
+  { key = 'b', description = '+browser', modal = browserModal, modalBindings = browserModalBindings },
   { key = 's', description = '+screenshot', modal = screenshotModal, modalBindings = screenshotModalBindings },
   { key = 'u', description = '+utilities', modal = utilitiesModal, modalBindings = utilitiesModalBindings },
   { key = 'v', description = '+views', modal = viewsModal, modalBindings = viewsModalBindings },
