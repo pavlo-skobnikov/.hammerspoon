@@ -22,3 +22,4 @@
 ---@field key string -- The key to press.
 ---@field msDelay number | nil -- Interval in milliseconds to wait before sending the key stroke.
 ---@field applicationName string -- Exact name of the application.
+---@field shouldFocusBeforeKeyEvent boolean | nil -- Whether to focus the application before sending the key stroke.

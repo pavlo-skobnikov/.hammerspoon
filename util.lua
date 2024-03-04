@@ -70,6 +70,8 @@ function MODULE.sendKeyToApplication(spec)
   local application = hs.application.get(spec.applicationName)
 
   if application then
+    if spec.shouldFocusBeforeKeyEvent then application:setFrontmost() end
+
     local modifiers = spec.modifiers and spec.modifiers or {}
     local interval = spec.msDelay and spec.msDelay * 1000 or 0
 

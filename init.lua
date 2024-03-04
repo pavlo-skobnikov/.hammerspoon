@@ -420,6 +420,270 @@ u.bindModalMapping {
 }
 
 ----------------------------------------------------------------------------------------------------
+--------------------------------- `Reminders` modal ------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+local remindersModal = u.createModal {
+  modalName = 'Reminders',
+}
+
+local listOfRemindersModalBindSpec = hs.fnutils.map(
+  {
+    {
+      key = 'n',
+      description = 'New reminder',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = 'n',
+          applicationName = 'Reminders',
+          shouldFocusBeforeKeyEvent = true,
+        }
+      end,
+    },
+    {
+      key = 'i',
+      description = 'Indent task',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = ']',
+          applicationName = 'Reminders',
+        }
+      end,
+    },
+    {
+      key = 'o',
+      description = 'Outdent task',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = '[',
+          applicationName = 'Reminders',
+        }
+      end,
+    },
+    {
+      key = 's',
+      description = 'Show subtasks',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = 'e',
+          applicationName = 'Reminders',
+        }
+      end,
+    },
+    {
+      key = 'h',
+      description = 'Hide subtasks',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd', 'shift' },
+          key = 'e',
+          applicationName = 'Reminders',
+        }
+      end,
+    },
+    {
+      key = 'f',
+      description = 'Flag/unflag task',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd', 'shift' },
+          key = 'f',
+          applicationName = 'Reminders',
+        }
+      end,
+    },
+    {
+      key = 'c',
+      description = 'Complete/uncomplete task',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd', 'shift' },
+          key = 'c',
+          applicationName = 'Reminders',
+        }
+      end,
+    },
+    {
+      key = '.',
+      description = 'Show/hide completed tasks',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd', 'shift' },
+          key = 'h',
+          applicationName = 'Reminders',
+        }
+      end,
+    },
+    {
+      key = 'b',
+      description = 'Toggle sidebar',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'alt', 'cmd' },
+          key = 's',
+          applicationName = 'Reminders',
+        }
+      end,
+    },
+    {
+      key = 't',
+      description = 'Set due today',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = 't',
+          applicationName = 'Reminders',
+        }
+      end,
+    },
+    {
+      key = 'd',
+      description = 'Set due tomorrow',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd', 'alt' },
+          key = 't',
+          applicationName = 'Reminders',
+        }
+      end,
+    },
+    {
+      key = 'o',
+      description = 'Set overdue to today',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd', 'ctrl' },
+          key = 't',
+          applicationName = 'Reminders',
+        }
+      end,
+    },
+    {
+      key = 'e',
+      description = 'Set due this/next weekend',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = 'k',
+          applicationName = 'Reminders',
+        }
+      end,
+    },
+    {
+      key = 'w',
+      description = 'Set due next week',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd', 'alt' },
+          key = 'k',
+          applicationName = 'Reminders',
+        }
+      end,
+    },
+    {
+      key = '1',
+      description = 'Go to Today list',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = '1',
+          applicationName = 'Reminders',
+          shouldFocusBeforeKeyEvent = true,
+        }
+      end,
+    },
+    {
+      key = '2',
+      description = 'Go to Scheduled',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = '2',
+          applicationName = 'Reminders',
+          shouldFocusBeforeKeyEvent = true,
+        }
+      end,
+    },
+    {
+      key = '3',
+      description = 'Go to All',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = '3',
+          applicationName = 'Reminders',
+          shouldFocusBeforeKeyEvent = true,
+        }
+      end,
+    },
+    {
+      key = '4',
+      description = 'Go to Flagged',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = '4',
+          applicationName = 'Reminders',
+          shouldFocusBeforeKeyEvent = true,
+        }
+      end,
+    },
+    {
+      key = '5',
+      description = 'Go to Completed',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = '5',
+          applicationName = 'Reminders',
+          shouldFocusBeforeKeyEvent = true,
+        }
+      end,
+    },
+    {
+      key = '6',
+      description = 'Go to Inbox',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = '6',
+          applicationName = 'Reminders',
+          shouldFocusBeforeKeyEvent = true,
+        }
+      end,
+    },
+  },
+  function(mapping)
+    return {
+      modal = remindersModal,
+      key = mapping.key,
+      description = mapping.description,
+      action = mapping.action,
+      exitModalAfterAction = true,
+    }
+  end
+)
+
+hs.fnutils.each(listOfRemindersModalBindSpec, u.bindModalMapping)
+
+local remindersModalBindings = u.modalBindSpecToString(listOfRemindersModalBindSpec)
+
+u.bindModalMapping {
+  modal = leaderModal,
+  key = 'r',
+  description = 'Reminders',
+  action = function()
+    remindersModal:enter()
+    u.alert(remindersModalBindings)
+  end,
+  exitModalAfterAction = true,
+}
+
+----------------------------------------------------------------------------------------------------
 ---------------------------------- `Screenshot bindings --------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
@@ -489,8 +753,9 @@ u.bindModalMapping {
 
 local listOfLeaderModalBindSpec = hs.fnutils.map({
   { key = 'a', description = '+applications', modal = applicationsModal, modalBindings = applicationsModalBindings },
-  { key = 'e', description = '+execute', modal = executeModal, modalBindings = executeModalBindings },
   { key = 'b', description = '+browser', modal = browserModal, modalBindings = browserModalBindings },
+  { key = 'e', description = '+execute', modal = executeModal, modalBindings = executeModalBindings },
+  { key = 'r', description = '+reminders', modal = remindersModal, modalBindings = remindersModalBindings },
   { key = 's', description = '+screenshot', modal = screenshotModal, modalBindings = screenshotModalBindings },
   { key = 'u', description = '+utilities', modal = utilitiesModal, modalBindings = utilitiesModalBindings },
   { key = 'v', description = '+views', modal = viewsModal, modalBindings = viewsModalBindings },
