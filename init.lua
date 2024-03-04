@@ -225,14 +225,14 @@ u.bindModalMapping {
 ----------------------------------------------------------------------------------------------------
 
 local browserModal = u.createModal {
-  modalName = 'Execute',
+  modalName = 'Browser',
 }
 
 local listOfBrowserModalBindSpec = hs.fnutils.map(
   {
     {
       key = 't',
-      description = 'Browse in current workspace',
+      description = 'Search tabs',
       action = function()
         u.sendKeyToApplication {
           modifiers = { 'cmd' },
@@ -243,7 +243,7 @@ local listOfBrowserModalBindSpec = hs.fnutils.map(
     },
     {
       key = 'c',
-      description = 'Open command bar',
+      description = 'Command bar',
       action = function()
         u.sendKeyToApplication {
           modifiers = { 'cmd' },
@@ -254,7 +254,7 @@ local listOfBrowserModalBindSpec = hs.fnutils.map(
     },
     {
       key = 'n',
-      description = 'New small tab for quick search',
+      description = 'New quick search',
       action = function()
         u.sendKeyToApplication {
           modifiers = { 'alt', 'cmd' },
@@ -277,75 +277,39 @@ local listOfBrowserModalBindSpec = hs.fnutils.map(
         }
       end,
     },
-    -- Immediately switch to the specified workspace and open a new tab.
-    -- The sleep is necessary to give the workspace switcher time to open.
-    -- The delay for the key stroke is flaky, so we need to manually give it a little time to work.
     {
       key = 'i',
-      description = 'Search/open tab in [Innovecs] workspace',
+      description = 'Open [Innovecs]',
       action = function()
-        hs.application.launchOrFocus 'Arc'
-
-        u.sleep(10)
-
         u.sendKeyToApplication {
           modifiers = { 'ctrl' },
           key = '3',
           applicationName = 'Arc',
-        }
-
-        u.sleep(200)
-
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = 't',
-          applicationName = 'Arc',
+          shouldFocusBeforeKeyEvent = true,
         }
       end,
     },
     {
       key = 'm',
-      description = 'Search/open tab in [Miro] workspace',
+      description = 'Open [Miro]',
       action = function()
-        hs.application.launchOrFocus 'Arc'
-
-        u.sleep(10)
-
         u.sendKeyToApplication {
           modifiers = { 'ctrl' },
           key = '2',
           applicationName = 'Arc',
-        }
-
-        u.sleep(200)
-
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = 't',
-          applicationName = 'Arc',
+          shouldFocusBeforeKeyEvent = true,
         }
       end,
     },
     {
       key = 'p',
-      description = 'Search/open tab in [Personal] workspace',
+      description = 'Open [Personal]',
       action = function()
-        hs.application.launchOrFocus 'Arc'
-
-        u.sleep(10)
-
         u.sendKeyToApplication {
           modifiers = { 'ctrl' },
           key = '1',
           applicationName = 'Arc',
-        }
-
-        u.sleep(200)
-
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = 't',
-          applicationName = 'Arc',
+          shouldFocusBeforeKeyEvent = true,
         }
       end,
     },
