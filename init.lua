@@ -684,6 +684,151 @@ u.bindModalMapping {
 }
 
 ----------------------------------------------------------------------------------------------------
+---------------------------------- `Calendar` modal ------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+local calendarModal = u.createModal {
+  modalName = 'Calendar',
+}
+
+local listOfCalendarModalBindSpec = hs.fnutils.map(
+  {
+    -- Calendar shortcuts
+    {
+      key = 't',
+      description = 'Go to today',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = 't',
+          applicationName = 'Calendar',
+          shouldFocusBeforeKeyEvent = true,
+        }
+      end,
+    },
+    {
+      key = 's',
+      description = 'Go to a specific date',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd', 'shift' },
+          key = 't',
+          applicationName = 'Calendar',
+          shouldFocusBeforeKeyEvent = true,
+        }
+      end,
+    },
+    {
+      key = 'd',
+      description = 'Switch to Day view',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = '1',
+          applicationName = 'Calendar',
+          shouldFocusBeforeKeyEvent = true,
+        }
+      end,
+    },
+    {
+      key = 'w',
+      description = 'Switch to Week view',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = '2',
+          applicationName = 'Calendar',
+          shouldFocusBeforeKeyEvent = true,
+        }
+      end,
+    },
+    {
+      key = 'm',
+      description = 'Switch to Month view',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = '3',
+          applicationName = 'Calendar',
+          shouldFocusBeforeKeyEvent = true,
+        }
+      end,
+    },
+    {
+      key = 'y',
+      description = 'Switch to Year view',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = '4',
+          applicationName = 'Calendar',
+          shouldFocusBeforeKeyEvent = true,
+        }
+      end,
+    },
+    -- Event shortcuts
+    {
+      key = 'n',
+      description = 'Add a new event',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = 'n',
+          applicationName = 'Calendar',
+          shouldFocusBeforeKeyEvent = true,
+        }
+      end,
+    },
+    {
+      key = 'e',
+      description = 'Edit the selected event',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = 'e',
+          applicationName = 'Calendar',
+        }
+      end,
+    },
+    {
+      key = 'i',
+      description = 'Show information for a calendar or event',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = 'i',
+          applicationName = 'Calendar',
+        }
+      end,
+    },
+  },
+  function(mapping)
+    return {
+      modal = calendarModal,
+      key = mapping.key,
+      description = mapping.description,
+      action = mapping.action,
+      exitModalAfterAction = true,
+    }
+  end
+)
+
+hs.fnutils.each(listOfCalendarModalBindSpec, u.bindModalMapping)
+
+local calendarModalBindings = u.modalBindSpecToString(listOfCalendarModalBindSpec)
+
+u.bindModalMapping {
+  modal = leaderModal,
+  key = 'c',
+  description = 'Calendar',
+  action = function()
+    calendarModal:enter()
+    u.alert(calendarModalBindings)
+  end,
+  exitModalAfterAction = true,
+}
+
+----------------------------------------------------------------------------------------------------
 ---------------------------------- `Screenshot bindings --------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
@@ -754,6 +899,7 @@ u.bindModalMapping {
 local listOfLeaderModalBindSpec = hs.fnutils.map({
   { key = 'a', description = '+applications', modal = applicationsModal, modalBindings = applicationsModalBindings },
   { key = 'b', description = '+browser', modal = browserModal, modalBindings = browserModalBindings },
+  { key = 'c', description = '+calendar', modal = calendarModal, modalBindings = calendarModalBindings },
   { key = 'e', description = '+execute', modal = executeModal, modalBindings = executeModalBindings },
   { key = 'r', description = '+reminders', modal = remindersModal, modalBindings = remindersModalBindings },
   { key = 's', description = '+screenshot', modal = screenshotModal, modalBindings = screenshotModalBindings },
