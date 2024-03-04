@@ -233,9 +233,9 @@ local listOfBrowserModalBindSpec = hs.fnutils.map({
   { key = 'c', desc = 'Command bar', keyEvent = { mods = { 'cmd' }, key = 'l' } },
   { key = 'n', desc = 'New quick search', keyEvent = { mods = { 'alt', 'cmd' }, key = 'n' } },
   { key = 'v', desc = 'Split', keyEvent = { mods = { 'ctrl', 'shift' }, key = '=', msDelay = 5, focusApp = true } },
-  { key = 'i', desc = 'Open [Innovecs]', keyEvent = { mods = { 'ctrl' }, key = '3', focusApp = true } },
-  { key = 'm', desc = 'Open [Miro]', keyEvent = { mods = { 'ctrl' }, key = '2', focusApp = true } },
-  { key = 'p', desc = 'Open [Personal]', keyEvent = { mods = { 'ctrl' }, key = '1', focusApp = true } },
+  { key = 'i', desc = '[Innovecs]', keyEvent = { mods = { 'ctrl' }, key = '3', focusApp = true }, exitMod = false },
+  { key = 'm', desc = '[Miro]', keyEvent = { mods = { 'ctrl' }, key = '2', focusApp = true }, exitMod = false },
+  { key = 'p', desc = '[Personal]', keyEvent = { mods = { 'ctrl' }, key = '1', focusApp = true }, exitMod = false },
 }, function(mapping)
   local spec = mapping.keyEvent
 
@@ -252,7 +252,7 @@ local listOfBrowserModalBindSpec = hs.fnutils.map({
         focusApp = spec.focusApp,
       }
     end,
-    exitModalAfterAction = true,
+    exitModalAfterAction = mapping.exitMod ~= false,
   }
 end)
 
