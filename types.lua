@@ -18,8 +18,8 @@
 ---@field exitModalAfterAction boolean | nil
 
 ---@class ApplicationKeyStrokeSpec
----@field modifiers string[] | nil -- Modifiers to press with the key.
+---@field mods string[] | nil -- Modifiers to press with the key.
 ---@field key string -- The key to press.
 ---@field msDelay number | nil -- Interval in milliseconds to wait before sending the key stroke.
----@field applicationName string -- Exact name of the application.
----@field shouldFocusBeforeKeyEvent boolean | nil -- Whether to focus the application before sending the key stroke.
+---@field appName string -- Exact name of the application.
+---@field focusApp boolean | nil -- Whether to focus the application before sending the key stroke.

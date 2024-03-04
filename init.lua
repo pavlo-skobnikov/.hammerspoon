@@ -23,23 +23,23 @@ local viewsModal = u.createModal {
 
 local listOfViewsModalBindSpec = hs.fnutils.map({
   -- Occupy 1/2 of a screen
-  { key = 'h', description = '1/2 Left', windowUnit = { 0, 0, 0.5, 1 } },
-  { key = 'l', description = '1/2 Right', windowUnit = { 0.5, 0, 0.5, 1 } },
-  { key = 'j', description = '1/2 Bottom', windowUnit = { 0, 0.5, 1, 0.5 } },
-  { key = 'k', description = '1/2 Top', windowUnit = { 0, 0, 1, 0.5 } },
+  { key = 'h', desc = '1/2 Left', windowUnit = { 0, 0, 0.5, 1 } },
+  { key = 'l', desc = '1/2 Right', windowUnit = { 0.5, 0, 0.5, 1 } },
+  { key = 'j', desc = '1/2 Bottom', windowUnit = { 0, 0.5, 1, 0.5 } },
+  { key = 'k', desc = '1/2 Top', windowUnit = { 0, 0, 1, 0.5 } },
   -- Occupy 1/3 of a screen
-  { key = 'a', description = '1/3 Left', windowUnit = { 0, 0, 0.33, 1 } },
-  { key = 's', description = '1/3 Middle', windowUnit = { 0.33, 0, 0.33, 1 } },
-  { key = 'd', description = '1/3 Right', windowUnit = { 0.66, 0, 0.33, 1 } },
+  { key = 'a', desc = '1/3 Left', windowUnit = { 0, 0, 0.33, 1 } },
+  { key = 's', desc = '1/3 Middle', windowUnit = { 0.33, 0, 0.33, 1 } },
+  { key = 'd', desc = '1/3 Right', windowUnit = { 0.66, 0, 0.33, 1 } },
   -- Occupy 1/4 of a screen
-  { key = 'y', description = '⌜', windowUnit = { 0, 0, 0.5, 0.5 } },
-  { key = 'u', description = '⌞', windowUnit = { 0, 0.5, 0.5, 0.5 } },
-  { key = 'i', description = '⌟', windowUnit = { 0.5, 0.5, 0.5, 0.5 } },
-  { key = 'o', description = '⌝', windowUnit = { 0.5, 0, 0.5, 0.5 } },
+  { key = 'y', desc = '⌜', windowUnit = { 0, 0, 0.5, 0.5 } },
+  { key = 'u', desc = '⌞', windowUnit = { 0, 0.5, 0.5, 0.5 } },
+  { key = 'i', desc = '⌟', windowUnit = { 0.5, 0.5, 0.5, 0.5 } },
+  { key = 'o', desc = '⌝', windowUnit = { 0.5, 0, 0.5, 0.5 } },
   -- Maximize
-  { key = 'm', description = 'Maximize', action = function() hs.window.focusedWindow():maximize() end },
+  { key = 'm', desc = 'Maximize', action = function() hs.window.focusedWindow():maximize() end },
   -- Center
-  { key = 'c', description = 'Center', action = function() hs.window.focusedWindow():centerOnScreen() end },
+  { key = 'c', desc = 'Center', action = function() hs.window.focusedWindow():centerOnScreen() end },
 }, function(mapping)
   local action
 
@@ -52,7 +52,7 @@ local listOfViewsModalBindSpec = hs.fnutils.map({
   return {
     modal = viewsModal,
     key = mapping.key,
-    description = mapping.description,
+    description = mapping.desc,
     action = action,
     exitModalAfterAction = true,
   }
@@ -84,21 +84,21 @@ local applicationsModal = u.createModal {
 local listOfApplicationsBindModalSpec = hs.fnutils.map({
   { key = 'a', appName = 'Arc' },
   { key = 'c', appName = 'Calendar' },
-  { key = 'd', appName = 'Docker Desktop', description = 'Docker' },
+  { key = 'd', appName = 'Docker Desktop', desc = 'Docker' },
   { key = 'f', appName = 'Finder' },
   { key = 'h', appName = 'Hammerspoon' },
-  { key = 'i', appName = 'IntelliJ IDEA', description = 'IDEA' },
+  { key = 'i', appName = 'IntelliJ IDEA', desc = 'IDEA' },
   { key = 'k', appName = 'Kitty' },
   { key = 'r', appName = 'Reminders' },
   { key = 'm', appName = 'Mail' },
   { key = 'n', appName = 'Notes' },
-  { key = 'p', appName = 'NordPass', description = 'Passwords' },
+  { key = 'p', appName = 'NordPass', desc = 'Passwords' },
   { key = 's', appName = 'Slack' },
   { key = 't', appName = 'Telegram' },
-  { key = 'w', appName = 'Microsoft Teams (work or school)', description = 'Work messenger' },
-  { key = 'z', appName = 'zoom.us', description = 'Zoom' },
+  { key = 'w', appName = 'Microsoft Teams (work or school)', desc = 'Work messenger' },
+  { key = 'z', appName = 'zoom.us', desc = 'Zoom' },
 }, function(mapping)
-  local description = mapping.description and mapping.description or mapping.appName
+  local description = mapping.desc and mapping.desc or mapping.appName
 
   return {
     modal = applicationsModal,
@@ -133,17 +133,17 @@ local utilitiesModal = u.createModal {
 }
 
 local listOfUtilitiesBindModalSpec = hs.fnutils.map({
-  { key = 'b', description = 'Brightness down', systemKey = 'BRIGHTNESS_DOWN' },
-  { key = 'f', description = 'Fast forward', systemKey = 'FAST' },
-  { key = 'g', description = 'Brightness up', systemKey = 'BRIGHTNESS_UP' },
-  { key = 'l', description = 'Lock screen', action = hs.caffeinate.lockScreen },
-  { key = 'm', description = 'Mute', action = function() u.sendSystemKey 'MUTE' end },
-  { key = 'n', description = 'Next track', systemKey = 'NEXT' },
-  { key = 'p', description = 'Previous track', systemKey = 'PREVIOUS' },
-  { key = 'r', description = 'Rewind', systemKey = 'REWIND' },
-  { key = 's', description = 'Sound down', systemKey = 'SOUND_DOWN' },
-  { key = 'w', description = 'Sound up', systemKey = 'SOUND_UP' },
-  { key = 'y', description = 'Play', action = function() u.sendSystemKey 'PLAY' end },
+  { key = 'b', desc = 'Brightness down', systemKey = 'BRIGHTNESS_DOWN' },
+  { key = 'f', desc = 'Fast forward', systemKey = 'FAST' },
+  { key = 'g', desc = 'Brightness up', systemKey = 'BRIGHTNESS_UP' },
+  { key = 'l', desc = 'Lock screen', action = hs.caffeinate.lockScreen },
+  { key = 'm', desc = 'Mute', action = function() u.sendSystemKey 'MUTE' end },
+  { key = 'n', desc = 'Next track', systemKey = 'NEXT' },
+  { key = 'p', desc = 'Previous track', systemKey = 'PREVIOUS' },
+  { key = 'r', desc = 'Rewind', systemKey = 'REWIND' },
+  { key = 's', desc = 'Sound down', systemKey = 'SOUND_DOWN' },
+  { key = 'w', desc = 'Sound up', systemKey = 'SOUND_UP' },
+  { key = 'y', desc = 'Play', action = function() u.sendSystemKey 'PLAY' end },
 }, function(mapping)
   local action
   local exitModalAfterAction
@@ -159,7 +159,7 @@ local listOfUtilitiesBindModalSpec = hs.fnutils.map({
   return {
     modal = utilitiesModal,
     key = mapping.key,
-    description = mapping.description,
+    description = mapping.desc,
     action = action,
     exitModalAfterAction = exitModalAfterAction,
   }
@@ -228,102 +228,33 @@ local browserModal = u.createModal {
   modalName = 'Browser',
 }
 
-local listOfBrowserModalBindSpec = hs.fnutils.map(
-  {
-    {
-      key = 't',
-      description = 'Search tabs',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = 't',
-          applicationName = 'Arc',
-        }
-      end,
-    },
-    {
-      key = 'c',
-      description = 'Command bar',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = 'l',
-          applicationName = 'Arc',
-        }
-      end,
-    },
-    {
-      key = 'n',
-      description = 'New quick search',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'alt', 'cmd' },
-          key = 'n',
-          applicationName = 'Arc',
-        }
-      end,
-    },
-    {
-      key = 'v',
-      description = 'Create vertical split',
-      action = function()
-        hs.application.launchOrFocus 'Arc'
+local listOfBrowserModalBindSpec = hs.fnutils.map({
+  { key = 't', desc = 'Search tabs', keyEvent = { mods = { 'cmd' }, key = 't' } },
+  { key = 'c', desc = 'Command bar', keyEvent = { mods = { 'cmd' }, key = 'l' } },
+  { key = 'n', desc = 'New quick search', keyEvent = { mods = { 'alt', 'cmd' }, key = 'n' } },
+  { key = 'v', desc = 'Split', keyEvent = { mods = { 'ctrl', 'shift' }, key = '=', msDelay = 5, focusApp = true } },
+  { key = 'i', desc = 'Open [Innovecs]', keyEvent = { mods = { 'ctrl' }, key = '3', focusApp = true } },
+  { key = 'm', desc = 'Open [Miro]', keyEvent = { mods = { 'ctrl' }, key = '2', focusApp = true } },
+  { key = 'p', desc = 'Open [Personal]', keyEvent = { mods = { 'ctrl' }, key = '1', focusApp = true } },
+}, function(mapping)
+  local spec = mapping.keyEvent
 
-        u.sendKeyToApplication {
-          modifiers = { 'ctrl', 'shift' },
-          key = '=',
-          interval = 5,
-          applicationName = 'Arc',
-        }
-      end,
-    },
-    {
-      key = 'i',
-      description = 'Open [Innovecs]',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'ctrl' },
-          key = '3',
-          applicationName = 'Arc',
-          shouldFocusBeforeKeyEvent = true,
-        }
-      end,
-    },
-    {
-      key = 'm',
-      description = 'Open [Miro]',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'ctrl' },
-          key = '2',
-          applicationName = 'Arc',
-          shouldFocusBeforeKeyEvent = true,
-        }
-      end,
-    },
-    {
-      key = 'p',
-      description = 'Open [Personal]',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'ctrl' },
-          key = '1',
-          applicationName = 'Arc',
-          shouldFocusBeforeKeyEvent = true,
-        }
-      end,
-    },
-  },
-  function(mapping)
-    return {
-      modal = browserModal,
-      key = mapping.key,
-      description = mapping.description,
-      action = mapping.action,
-      exitModalAfterAction = true,
-    }
-  end
-)
+  return {
+    modal = browserModal,
+    key = mapping.key,
+    description = mapping.desc,
+    action = function()
+      u.sendKeyToApplication {
+        mods = spec.mods,
+        key = spec.key,
+        msDelay = spec.msDelay,
+        appName = 'Arc',
+        focusApp = spec.focusApp,
+      }
+    end,
+    exitModalAfterAction = true,
+  }
+end)
 
 hs.fnutils.each(listOfBrowserModalBindSpec, u.bindModalMapping)
 
@@ -348,246 +279,46 @@ local remindersModal = u.createModal {
   modalName = 'Reminders',
 }
 
-local listOfRemindersModalBindSpec = hs.fnutils.map(
-  {
-    {
-      key = 'n',
-      description = 'New reminder',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = 'n',
-          applicationName = 'Reminders',
-          shouldFocusBeforeKeyEvent = true,
-        }
-      end,
-    },
-    {
-      key = 'i',
-      description = 'Indent task',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = ']',
-          applicationName = 'Reminders',
-        }
-      end,
-    },
-    {
-      key = 'o',
-      description = 'Outdent task',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = '[',
-          applicationName = 'Reminders',
-        }
-      end,
-    },
-    {
-      key = 's',
-      description = 'Show subtasks',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = 'e',
-          applicationName = 'Reminders',
-        }
-      end,
-    },
-    {
-      key = 'h',
-      description = 'Hide subtasks',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd', 'shift' },
-          key = 'e',
-          applicationName = 'Reminders',
-        }
-      end,
-    },
-    {
-      key = 'f',
-      description = 'Flag/unflag task',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd', 'shift' },
-          key = 'f',
-          applicationName = 'Reminders',
-        }
-      end,
-    },
-    {
-      key = 'c',
-      description = 'Complete/uncomplete task',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd', 'shift' },
-          key = 'c',
-          applicationName = 'Reminders',
-        }
-      end,
-    },
-    {
-      key = '.',
-      description = 'Show/hide completed tasks',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd', 'shift' },
-          key = 'h',
-          applicationName = 'Reminders',
-        }
-      end,
-    },
-    {
-      key = 'b',
-      description = 'Toggle sidebar',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'alt', 'cmd' },
-          key = 's',
-          applicationName = 'Reminders',
-        }
-      end,
-    },
-    {
-      key = 't',
-      description = 'Set due today',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = 't',
-          applicationName = 'Reminders',
-        }
-      end,
-    },
-    {
-      key = 'd',
-      description = 'Set due tomorrow',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd', 'alt' },
-          key = 't',
-          applicationName = 'Reminders',
-        }
-      end,
-    },
-    {
-      key = 'o',
-      description = 'Set overdue to today',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd', 'ctrl' },
-          key = 't',
-          applicationName = 'Reminders',
-        }
-      end,
-    },
-    {
-      key = 'e',
-      description = 'Set due this/next weekend',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = 'k',
-          applicationName = 'Reminders',
-        }
-      end,
-    },
-    {
-      key = 'w',
-      description = 'Set due next week',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd', 'alt' },
-          key = 'k',
-          applicationName = 'Reminders',
-        }
-      end,
-    },
-    {
-      key = '1',
-      description = 'Go to Today list',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = '1',
-          applicationName = 'Reminders',
-          shouldFocusBeforeKeyEvent = true,
-        }
-      end,
-    },
-    {
-      key = '2',
-      description = 'Go to Scheduled',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = '2',
-          applicationName = 'Reminders',
-          shouldFocusBeforeKeyEvent = true,
-        }
-      end,
-    },
-    {
-      key = '3',
-      description = 'Go to All',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = '3',
-          applicationName = 'Reminders',
-          shouldFocusBeforeKeyEvent = true,
-        }
-      end,
-    },
-    {
-      key = '4',
-      description = 'Go to Flagged',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = '4',
-          applicationName = 'Reminders',
-          shouldFocusBeforeKeyEvent = true,
-        }
-      end,
-    },
-    {
-      key = '5',
-      description = 'Go to Completed',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = '5',
-          applicationName = 'Reminders',
-          shouldFocusBeforeKeyEvent = true,
-        }
-      end,
-    },
-    {
-      key = '6',
-      description = 'Go to Inbox',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = '6',
-          applicationName = 'Reminders',
-          shouldFocusBeforeKeyEvent = true,
-        }
-      end,
-    },
-  },
-  function(mapping)
-    return {
-      modal = remindersModal,
-      key = mapping.key,
-      description = mapping.description,
-      action = mapping.action,
-      exitModalAfterAction = true,
-    }
-  end
-)
+local listOfRemindersModalBindSpec = hs.fnutils.map({
+  { key = 'n', desc = 'New reminder', keyEventSpec = { mods = { 'cmd' }, key = 'n', focusApp = true } },
+  { key = 'i', desc = 'Indent task', keyEventSpec = { mods = { 'cmd' }, key = ']' } },
+  { key = 'o', desc = 'Outdent task', keyEventSpec = { mods = { 'cmd' }, key = '[' } },
+  { key = 's', desc = 'Show subtasks', keyEventSpec = { mods = { 'cmd' }, key = 'e' } },
+  { key = 'h', desc = 'Hide subtasks', keyEventSpec = { mods = { 'cmd', 'shift' }, key = 'e' } },
+  { key = 'f', desc = 'Flag/unflag task', keyEventSpec = { mods = { 'cmd', 'shift' }, key = 'f' } },
+  { key = 'c', desc = 'Complete/uncomplete task', keyEventSpec = { mods = { 'cmd', 'shift' }, key = 'c' } },
+  { key = '.', desc = 'Show/hide completed tasks', keyEventSpec = { mods = { 'cmd', 'shift' }, key = 'h' } },
+  { key = 'b', desc = 'Toggle sidebar', keyEventSpec = { mods = { 'alt', 'cmd' }, key = 's' } },
+  { key = 't', desc = 'Set due today', keyEventSpec = { mods = { 'cmd' }, key = 't' } },
+  { key = 'd', desc = 'Set due tomorrow', keyEventSpec = { mods = { 'cmd', 'alt' }, key = 't' } },
+  { key = 'o', desc = 'Set overdue to today', keyEventSpec = { mods = { 'cmd', 'ctrl' }, key = 't' } },
+  { key = 'e', desc = 'Set due this/next weekend', keyEventSpec = { mods = { 'cmd' }, key = 'k' } },
+  { key = 'w', desc = 'Set due next week', keyEventSpec = { mods = { 'cmd', 'alt' }, key = 'k' } },
+  { key = '1', desc = 'Go to Today list', keyEventSpec = { mods = { 'cmd' }, key = '1', focusApp = true } },
+  { key = '2', desc = 'Go to Scheduled', keyEventSpec = { mods = { 'cmd' }, key = '2', focusApp = true } },
+  { key = '3', desc = 'Go to All', keyEventSpec = { mods = { 'cmd' }, key = '3', focusApp = true } },
+  { key = '4', desc = 'Go to Flagged', keyEventSpec = { mods = { 'cmd' }, key = '4', focusApp = true } },
+  { key = '5', desc = 'Go to Completed', keyEventSpec = { mods = { 'cmd' }, key = '5', focusApp = true } },
+  { key = '6', desc = 'Go to Inbox', keyEventSpec = { mods = { 'cmd' }, key = '6', focusApp = true } },
+}, function(mapping)
+  local spec = mapping.keyEventSpec
+
+  return {
+    modal = remindersModal,
+    key = mapping.key,
+    description = mapping.desc,
+    action = function()
+      u.sendKeyToApplication {
+        mods = spec.mods,
+        key = spec.key,
+        msDelay = spec.msDelay,
+        appName = 'Reminders',
+        focusApp = spec.focusApp,
+      }
+    end,
+    exitModalAfterAction = true,
+  }
+end)
 
 hs.fnutils.each(listOfRemindersModalBindSpec, u.bindModalMapping)
 
@@ -612,127 +343,37 @@ local calendarModal = u.createModal {
   modalName = 'Calendar',
 }
 
-local listOfCalendarModalBindSpec = hs.fnutils.map(
-  {
-    -- Calendar shortcuts
-    {
-      key = 't',
-      description = 'Go to today',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = 't',
-          applicationName = 'Calendar',
-          shouldFocusBeforeKeyEvent = true,
-        }
-      end,
-    },
-    {
-      key = 's',
-      description = 'Go to a specific date',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd', 'shift' },
-          key = 't',
-          applicationName = 'Calendar',
-          shouldFocusBeforeKeyEvent = true,
-        }
-      end,
-    },
-    {
-      key = 'd',
-      description = 'Switch to Day view',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = '1',
-          applicationName = 'Calendar',
-          shouldFocusBeforeKeyEvent = true,
-        }
-      end,
-    },
-    {
-      key = 'w',
-      description = 'Switch to Week view',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = '2',
-          applicationName = 'Calendar',
-          shouldFocusBeforeKeyEvent = true,
-        }
-      end,
-    },
-    {
-      key = 'm',
-      description = 'Switch to Month view',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = '3',
-          applicationName = 'Calendar',
-          shouldFocusBeforeKeyEvent = true,
-        }
-      end,
-    },
-    {
-      key = 'y',
-      description = 'Switch to Year view',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = '4',
-          applicationName = 'Calendar',
-          shouldFocusBeforeKeyEvent = true,
-        }
-      end,
-    },
-    -- Event shortcuts
-    {
-      key = 'n',
-      description = 'Add a new event',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = 'n',
-          applicationName = 'Calendar',
-          shouldFocusBeforeKeyEvent = true,
-        }
-      end,
-    },
-    {
-      key = 'e',
-      description = 'Edit the selected event',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = 'e',
-          applicationName = 'Calendar',
-        }
-      end,
-    },
-    {
-      key = 'i',
-      description = 'Show information for a calendar or event',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = 'i',
-          applicationName = 'Calendar',
-        }
-      end,
-    },
-  },
-  function(mapping)
-    return {
-      modal = calendarModal,
-      key = mapping.key,
-      description = mapping.description,
-      action = mapping.action,
-      exitModalAfterAction = true,
-    }
-  end
-)
+local listOfCalendarModalBindSpec = hs.fnutils.map({
+  -- Calendar shortcuts
+  { key = 't', desc = 'Today', keyEventSpec = { mods = { 'cmd' }, key = 't', focusApp = true } },
+  { key = 's', desc = 'Specific date', keyEventSpec = { mods = { 'cmd', 'shift' }, key = 't', focusApp = true } },
+  { key = 'd', desc = 'Day view', keyEventSpec = { mods = { 'cmd' }, key = '1', focusApp = true } },
+  { key = 'w', desc = 'Week view', keyEventSpec = { mods = { 'cmd' }, key = '2', focusApp = true } },
+  { key = 'm', desc = 'Month view', keyEventSpec = { mods = { 'cmd' }, key = '3', focusApp = true } },
+  { key = 'y', desc = 'Year view', keyEventSpec = { mods = { 'cmd' }, key = '4', focusApp = true } },
+  -- Event shortcuts
+  { key = 'n', desc = 'New event', keyEventSpec = { mods = { 'cmd' }, key = 'n', focusApp = true } },
+  { key = 'e', desc = 'Edit event', keyEventSpec = { mods = { 'cmd' }, key = 'e' } },
+  { key = 'i', desc = 'Event/calendar info', keyEventSpec = { mods = { 'cmd' }, key = 'i' } },
+}, function(mapping)
+  local spec = mapping.keyEventSpec
+
+  return {
+    modal = calendarModal,
+    key = mapping.key,
+    description = mapping.desc,
+    action = function()
+      u.sendKeyToApplication {
+        mods = spec.mods,
+        key = spec.key,
+        msDelay = spec.msDelay,
+        appName = 'Calendar',
+        focusApp = spec.focusApp,
+      }
+    end,
+    exitModalAfterAction = true,
+  }
+end)
 
 hs.fnutils.each(listOfCalendarModalBindSpec, u.bindModalMapping)
 
@@ -757,252 +398,45 @@ local notesModal = u.createModal {
   modalName = 'Notes',
 }
 
-local listOfNotesModalBindSpec = hs.fnutils.map(
-  {
-    {
-      key = 'n',
-      description = 'Create a new note',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = 'n',
-          applicationName = 'Notes',
-          shouldFocusBeforeKeyEvent = true,
-        }
-      end,
-      exitModalAfterAction = true,
-    },
-    {
-      key = 'd',
-      description = 'Duplicate the existing note',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = 'd',
-          applicationName = 'Notes',
-        }
-      end,
-      exitModalAfterAction = true,
-    },
-    {
-      key = '1',
-      description = 'Show notes in a list',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = '1',
-          applicationName = 'Notes',
-          shouldFocusBeforeKeyEvent = true,
-        }
-      end,
-      exitModalAfterAction = true,
-    },
-    {
-      key = '2',
-      description = 'Show notes in gallery view',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = '2',
-          applicationName = 'Notes',
-          shouldFocusBeforeKeyEvent = true,
-        }
-      end,
-      exitModalAfterAction = true,
-    },
-    {
-      key = '3',
-      description = 'Show attachments',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = '3',
-          applicationName = 'Notes',
-          shouldFocusBeforeKeyEvent = true,
-        }
-      end,
-      exitModalAfterAction = true,
-    },
-    {
-      key = 'b',
-      description = 'Show or hide folders bar',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd', 'alt' },
-          key = 's',
-          applicationName = 'Notes',
-        }
-      end,
-      exitModalAfterAction = true,
-    },
-    {
-      key = 'f',
-      description = 'Find note',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'alt', 'cmd' },
-          key = 'f',
-          applicationName = 'Notes',
-          shouldFocusBeforeKeyEvent = true,
-        }
-      end,
-      exitModalAfterAction = true,
-    },
-    {
-      key = 'a',
-      description = 'Add a table',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'alt', 'cmd' },
-          key = 't',
-          applicationName = 'Notes',
-        }
-      end,
-      exitModalAfterAction = true,
-    },
-    {
-      key = 'l',
-      description = 'Insert a link',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = 'k',
-          applicationName = 'Notes',
-        }
-      end,
-      exitModalAfterAction = true,
-    },
-    {
-      key = 't',
-      description = 'Apply Title format',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'shift', 'cmd' },
-          key = 't',
-          applicationName = 'Notes',
-        }
-      end,
-      exitModalAfterAction = true,
-    },
-    {
-      key = 'h',
-      description = 'Apply Heading format',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'shift', 'cmd' },
-          key = 'h',
-          applicationName = 'Notes',
-        }
-      end,
-      exitModalAfterAction = true,
-    },
-    {
-      key = 's',
-      description = 'Apply Subheading format',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'shift', 'cmd' },
-          key = 'j',
-          applicationName = 'Notes',
-        }
-      end,
-      exitModalAfterAction = true,
-    },
-    {
-      key = 'p',
-      description = 'Apply plain text format',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'shift', 'cmd' },
-          key = 'b',
-          applicationName = 'Notes',
-        }
-      end,
-      exitModalAfterAction = true,
-    },
-    {
-      key = 'm',
-      description = 'Apply Monospaced format',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'shift', 'cmd' },
-          key = 'm',
-          applicationName = 'Notes',
-        }
-      end,
-      exitModalAfterAction = true,
-    },
-    {
-      key = 'q',
-      description = 'Apply Block Quote format',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'cmd' },
-          key = "'",
-          applicationName = 'Notes',
-        }
-      end,
-      exitModalAfterAction = true,
-    },
-    {
-      key = 'c',
-      description = 'Create a checklist',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'shift', 'cmd' },
-          key = 'l',
-          applicationName = 'Notes',
-        }
-      end,
-      exitModalAfterAction = true,
-    },
-    {
-      key = 'u',
-      description = 'Mark/unmark a checklist item',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'shift', 'cmd' },
-          key = 'u',
-          applicationName = 'Notes',
-        }
-      end,
-      exitModalAfterAction = true,
-    },
-    {
-      key = 'k',
-      description = 'Move checklist item up',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'ctrl', 'cmd' },
-          key = 'up',
-          applicationName = 'Notes',
-        }
-      end,
-      exitModalAfterAction = false,
-    },
-    {
-      key = 'j',
-      description = 'Move checklist item down',
-      action = function()
-        u.sendKeyToApplication {
-          modifiers = { 'ctrl', 'cmd' },
-          key = 'down',
-          applicationName = 'Notes',
-        }
-      end,
-      exitModalAfterAction = false,
-    },
-  },
-  function(mapping)
-    return {
-      modal = notesModal,
-      key = mapping.key,
-      description = mapping.description,
-      action = mapping.action,
-      exitModalAfterAction = mapping.exitModalAfterAction,
-    }
-  end
-)
+local listOfNotesModalBindSpec = hs.fnutils.map({
+  { key = 'n', desc = 'Create note', keyEventSpec = { mods = { 'cmd' }, key = 'n', focusApp = true } },
+  { key = 'd', desc = 'Duplicate note', keyEventSpec = { mods = { 'cmd' }, key = 'd' } },
+  { key = '1', desc = 'List view', keyEventSpec = { mods = { 'cmd' }, key = '1', focusApp = true } },
+  { key = '2', desc = 'Gallery view', keyEventSpec = { mods = { 'cmd' }, key = '2', focusApp = true } },
+  { key = '3', desc = 'Attachments', keyEventSpec = { mods = { 'cmd' }, key = '3', focusApp = true } },
+  { key = 'b', desc = 'Show/hide folders bar', keyEventSpec = { mods = { 'cmd', 'alt' }, key = 's' } },
+  { key = 'f', desc = 'Find note', keyEventSpec = { mods = { 'alt', 'cmd' }, key = 'f', focusApp = true } },
+  { key = 'a', desc = 'Add a table', keyEventSpec = { mods = { 'alt', 'cmd' }, key = 't' } },
+  { key = 'l', desc = 'Insert a link', keyEventSpec = { mods = { 'cmd' }, key = 'k' } },
+  { key = 't', desc = 'Apply Title format', keyEventSpec = { mods = { 'shift', 'cmd' }, key = 't' } },
+  { key = 'h', desc = 'Apply Heading format', keyEventSpec = { mods = { 'shift', 'cmd' }, key = 'h' } },
+  { key = 's', desc = 'Apply Subheading format', keyEventSpec = { mods = { 'shift', 'cmd' }, key = 'j' } },
+  { key = 'p', desc = 'Apply plain text format', keyEventSpec = { mods = { 'shift', 'cmd' }, key = 'b' } },
+  { key = 'm', desc = 'Apply Monospaced format', keyEventSpec = { mods = { 'shift', 'cmd' }, key = 'm' } },
+  { key = 'q', desc = 'Apply Block Quote format', keyEventSpec = { mods = { 'cmd' }, key = "'" } },
+  { key = 'c', desc = 'Create a checklist', keyEventSpec = { mods = { 'shift', 'cmd' }, key = 'l' } },
+  { key = 'u', desc = 'Mark/unmark a checklist item', keyEventSpec = { mods = { 'shift', 'cmd' }, key = 'u' } },
+  { key = 'k', desc = 'Clist item up', keyEventSpec = { mods = { 'ctrl', 'cmd' }, key = 'up' }, exitMod = false },
+  { key = 'j', desc = 'Clist item down', keyEventSpec = { mods = { 'ctrl', 'cmd' }, key = 'down' }, exitMod = false },
+}, function(mapping)
+  local spec = mapping.keyEventSpec
+
+  return {
+    modal = notesModal,
+    key = mapping.key,
+    description = mapping.desc,
+    action = function()
+      u.sendKeyToApplication {
+        mods = spec.mods,
+        key = spec.key,
+        msDelay = spec.msDelay,
+        appName = 'Notes',
+        focusApp = spec.focusApp,
+      }
+    end,
+    exitModalAfterAction = mapping.exitMod ~= false,
+  }
+end)
 
 hs.fnutils.each(listOfNotesModalBindSpec, u.bindModalMapping)
 

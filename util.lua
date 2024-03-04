@@ -67,17 +67,17 @@ end
 -- Sends a key stroke to the application with the exact given name.
 ---@param spec ApplicationKeyStrokeSpec
 function MODULE.sendKeyToApplication(spec)
-  local application = hs.application.get(spec.applicationName)
+  local application = hs.application.get(spec.appName)
 
   if application then
-    if spec.shouldFocusBeforeKeyEvent then application:setFrontmost() end
+    if spec.focusApp then application:setFrontmost() end
 
-    local modifiers = spec.modifiers and spec.modifiers or {}
+    local modifiers = spec.mods and spec.mods or {}
     local interval = spec.msDelay and spec.msDelay * 1000 or 0
 
     hs.eventtap.keyStroke(modifiers, spec.key, interval, application)
   else
-    MODULE.alert('No application found with the name ' .. spec.applicationName)
+    MODULE.alert('No application found with the name ' .. spec.appName)
   end
 end
 
