@@ -57,6 +57,28 @@ function MODULE.launchOrFocusChromeProfileWindow(profileName)
   end
 end
 
+-- Sleeps for the given amount of interval in milliseconds.
+-- Useful for delaying some key stroke after trying to focus a window.
+---@param msDelay number
+function MODULE.sleep(msDelay)
+  hs.timer.usleep(msDelay * 1000)
+end
+
+-- Sends a key stroke to the application with the exact given name.
+---@param spec ApplicationKeyStrokeSpec
+function MODULE.sendKeyToApplication(spec)
+  local application = hs.application.get(spec.applicationName)
+
+  if application then
+    local modifiers = spec.modifiers and spec.modifiers or {}
+    local interval = spec.msDelay and spec.msDelay * 1000 or 0
+
+    hs.eventtap.keyStroke(modifiers, spec.key, interval, application)
+  else
+    MODULE.alert('No application found with the name ' .. spec.applicationName)
+  end
+end
+
 ----------------------------------------------------------------------------------------------------
 -------------------------------- Modal helper functions --------------------------------------------
 ----------------------------------------------------------------------------------------------------
