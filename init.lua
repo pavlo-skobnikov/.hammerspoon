@@ -829,6 +829,276 @@ u.bindModalMapping {
 }
 
 ----------------------------------------------------------------------------------------------------
+------------------------------------ `Notes` modal -------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
+local notesModal = u.createModal {
+  modalName = 'Notes',
+}
+
+local listOfNotesModalBindSpec = hs.fnutils.map(
+  {
+    {
+      key = 'n',
+      description = 'Create a new note',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = 'n',
+          applicationName = 'Notes',
+          shouldFocusBeforeKeyEvent = true,
+        }
+      end,
+      exitModalAfterAction = true,
+    },
+    {
+      key = 'd',
+      description = 'Duplicate the existing note',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = 'd',
+          applicationName = 'Notes',
+        }
+      end,
+      exitModalAfterAction = true,
+    },
+    {
+      key = '1',
+      description = 'Show notes in a list',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = '1',
+          applicationName = 'Notes',
+          shouldFocusBeforeKeyEvent = true,
+        }
+      end,
+      exitModalAfterAction = true,
+    },
+    {
+      key = '2',
+      description = 'Show notes in gallery view',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = '2',
+          applicationName = 'Notes',
+          shouldFocusBeforeKeyEvent = true,
+        }
+      end,
+      exitModalAfterAction = true,
+    },
+    {
+      key = '3',
+      description = 'Show attachments',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = '3',
+          applicationName = 'Notes',
+          shouldFocusBeforeKeyEvent = true,
+        }
+      end,
+      exitModalAfterAction = true,
+    },
+    {
+      key = 'b',
+      description = 'Show or hide folders bar',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd', 'alt' },
+          key = 's',
+          applicationName = 'Notes',
+        }
+      end,
+      exitModalAfterAction = true,
+    },
+    {
+      key = 'f',
+      description = 'Find note',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'alt', 'cmd' },
+          key = 'f',
+          applicationName = 'Notes',
+          shouldFocusBeforeKeyEvent = true,
+        }
+      end,
+      exitModalAfterAction = true,
+    },
+    {
+      key = 'a',
+      description = 'Add a table',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'alt', 'cmd' },
+          key = 't',
+          applicationName = 'Notes',
+        }
+      end,
+      exitModalAfterAction = true,
+    },
+    {
+      key = 'l',
+      description = 'Insert a link',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = 'k',
+          applicationName = 'Notes',
+        }
+      end,
+      exitModalAfterAction = true,
+    },
+    {
+      key = 't',
+      description = 'Apply Title format',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'shift', 'cmd' },
+          key = 't',
+          applicationName = 'Notes',
+        }
+      end,
+      exitModalAfterAction = true,
+    },
+    {
+      key = 'h',
+      description = 'Apply Heading format',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'shift', 'cmd' },
+          key = 'h',
+          applicationName = 'Notes',
+        }
+      end,
+      exitModalAfterAction = true,
+    },
+    {
+      key = 's',
+      description = 'Apply Subheading format',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'shift', 'cmd' },
+          key = 'j',
+          applicationName = 'Notes',
+        }
+      end,
+      exitModalAfterAction = true,
+    },
+    {
+      key = 'p',
+      description = 'Apply plain text format',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'shift', 'cmd' },
+          key = 'b',
+          applicationName = 'Notes',
+        }
+      end,
+      exitModalAfterAction = true,
+    },
+    {
+      key = 'm',
+      description = 'Apply Monospaced format',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'shift', 'cmd' },
+          key = 'm',
+          applicationName = 'Notes',
+        }
+      end,
+      exitModalAfterAction = true,
+    },
+    {
+      key = 'q',
+      description = 'Apply Block Quote format',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'cmd' },
+          key = "'",
+          applicationName = 'Notes',
+        }
+      end,
+      exitModalAfterAction = true,
+    },
+    {
+      key = 'c',
+      description = 'Create a checklist',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'shift', 'cmd' },
+          key = 'l',
+          applicationName = 'Notes',
+        }
+      end,
+      exitModalAfterAction = true,
+    },
+    {
+      key = 'u',
+      description = 'Mark/unmark a checklist item',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'shift', 'cmd' },
+          key = 'u',
+          applicationName = 'Notes',
+        }
+      end,
+      exitModalAfterAction = true,
+    },
+    {
+      key = 'k',
+      description = 'Move checklist item up',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'ctrl', 'cmd' },
+          key = 'up',
+          applicationName = 'Notes',
+        }
+      end,
+      exitModalAfterAction = false,
+    },
+    {
+      key = 'j',
+      description = 'Move checklist item down',
+      action = function()
+        u.sendKeyToApplication {
+          modifiers = { 'ctrl', 'cmd' },
+          key = 'down',
+          applicationName = 'Notes',
+        }
+      end,
+      exitModalAfterAction = false,
+    },
+  },
+  function(mapping)
+    return {
+      modal = notesModal,
+      key = mapping.key,
+      description = mapping.description,
+      action = mapping.action,
+      exitModalAfterAction = mapping.exitModalAfterAction,
+    }
+  end
+)
+
+hs.fnutils.each(listOfNotesModalBindSpec, u.bindModalMapping)
+
+local notesModalBindings = u.modalBindSpecToString(listOfNotesModalBindSpec)
+
+u.bindModalMapping {
+  modal = leaderModal,
+  key = 'n',
+  description = 'Notes',
+  action = function()
+    notesModal:enter()
+    u.alert(notesModalBindings)
+  end,
+  exitModalAfterAction = true,
+}
+
+----------------------------------------------------------------------------------------------------
 ---------------------------------- `Screenshot bindings --------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
@@ -901,6 +1171,7 @@ local listOfLeaderModalBindSpec = hs.fnutils.map({
   { key = 'b', description = '+browser', modal = browserModal, modalBindings = browserModalBindings },
   { key = 'c', description = '+calendar', modal = calendarModal, modalBindings = calendarModalBindings },
   { key = 'e', description = '+execute', modal = executeModal, modalBindings = executeModalBindings },
+  { key = 'n', description = '+notes', modal = notesModal, modalBindings = notesModalBindings },
   { key = 'r', description = '+reminders', modal = remindersModal, modalBindings = remindersModalBindings },
   { key = 's', description = '+screenshot', modal = screenshotModal, modalBindings = screenshotModalBindings },
   { key = 'u', description = '+utilities', modal = utilitiesModal, modalBindings = utilitiesModalBindings },
