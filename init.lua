@@ -190,58 +190,15 @@ local executeModal = u.createModal {
 
 local listOfExecuteModalBindSpec = hs.fnutils.map(
   {
-    {
-      key = 'k',
-      description = 'Kill the frontmost app',
-      action = function() hs.application.frontmostApplication():kill() end,
-    },
-    { key = 'r', description = 'Reload Hammerspoon config', action = hs.reload },
-    {
-      key = 'e',
-      description = 'Emoji picker',
-      action = function() hs.eventtap.keyStroke({ 'ctrl', 'cmd' }, 'space') end,
-    },
-    {
-      key = 'o',
-      description = 'Open browser command bar',
-      action = function()
-        hs.application.launchOrFocus 'Arc'
-        hs.eventtap.keyStroke({ 'cmd' }, 'l')
-      end,
-    },
-    {
-      key = 'b',
-      description = 'New browser tab',
-      action = function()
-        hs.application.launchOrFocus 'Arc'
-        hs.eventtap.keyStroke({ 'cmd' }, 't')
-      end,
-    },
-    {
-      key = 'n',
-      description = 'Create a note',
-      action = function()
-        hs.application.launchOrFocus 'Notion'
-        hs.timer.usleep(200 * 1000) -- Sleep for 200 ms to give Notion time to open
-        hs.eventtap.keyStroke({ 'cmd' }, 'n')
-      end,
-    },
-    {
-      key = 's',
-      description = 'Search all notes',
-      action = function() hs.eventtap.keyStroke({ 'cmd', 'shift' }, 'k') end,
-    },
-    {
-      key = 't',
-      description = 'Create a task',
-      action = function() hs.eventtap.keyStroke({ 'alt' }, 'space') end,
-    },
+    { key = 'k', desc = 'Kill app', action = function() hs.application.frontmostApplication():kill() end },
+    { key = 'r', desc = 'Reload Hammerspoon config', action = hs.reload },
+    { key = 'e', desc = 'Emojis', action = function() hs.eventtap.keyStroke({ 'ctrl', 'cmd' }, 'space') end },
   },
   function(mapping)
     return {
       modal = executeModal,
       key = mapping.key,
-      description = mapping.description,
+      description = mapping.desc,
       action = mapping.action,
       exitModalAfterAction = true,
     }
