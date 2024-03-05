@@ -2,6 +2,8 @@ local u = require 'util'
 
 -- Disable animations, default value = 0.2
 hs.window.animationDuration = 0
+-- Disable window shadows
+hs.window.setShadows(false)
 
 ------------------------------
 -- Root `Leader` modal
@@ -233,9 +235,9 @@ local listOfBrowserModalBindSpec = hs.fnutils.map({
   { key = 'c', desc = 'Command bar', keyEvent = { mods = { 'cmd' }, key = 'l' } },
   { key = 'n', desc = 'New quick search', keyEvent = { mods = { 'alt', 'cmd' }, key = 'n' } },
   { key = 'v', desc = 'Split', keyEvent = { mods = { 'ctrl', 'shift' }, key = '=', msDelay = 5, focusApp = true } },
-  { key = 'i', desc = '[Innovecs]', keyEvent = { mods = { 'ctrl' }, key = '3', focusApp = true }, exitMod = false },
-  { key = 'm', desc = '[Miro]', keyEvent = { mods = { 'ctrl' }, key = '2', focusApp = true }, exitMod = false },
-  { key = 'p', desc = '[Personal]', keyEvent = { mods = { 'ctrl' }, key = '1', focusApp = true }, exitMod = false },
+  { key = 'i', desc = '[Innovecs]', keyEvent = { mods = { 'ctrl' }, key = '3', focusApp = true } },
+  { key = 'm', desc = '[Miro]', keyEvent = { mods = { 'ctrl' }, key = '2', focusApp = true } },
+  { key = 'p', desc = '[Personal]', keyEvent = { mods = { 'ctrl' }, key = '1', focusApp = true } },
 }, function(mapping)
   local spec = mapping.keyEvent
 
