@@ -14,8 +14,8 @@ function MODULE.alert(alert)
     fillColor = { white = 0, alpha = 0.75 },
     textColor = { white = 1, alpha = 1 },
     textFont = '.AppleSystemUIFont',
-    textSize = 15,
-    radius = 15,
+    textSize = 14,
+    radius = 14,
     atScreenEdge = 2,
     fadeInDuration = 0.15,
     fadeOutDuration = 0.05,
@@ -77,9 +77,7 @@ end
 -- Sleeps for the given amount of interval in milliseconds.
 -- Useful for delaying some key stroke after trying to focus a window.
 ---@param msDelay number
-function MODULE.sleep(msDelay)
-  hs.timer.usleep(msDelay * 1000)
-end
+function MODULE.sleep(msDelay) hs.timer.usleep(msDelay * 1000) end
 
 ----------------------------------------------------------------------------------------------------
 -------------------------------- Modal helper functions --------------------------------------------
