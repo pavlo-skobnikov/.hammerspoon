@@ -231,13 +231,33 @@ local browserModal = u.createModal {
 }
 
 local listOfBrowserModalBindSpec = hs.fnutils.map({
-  { key = 't', desc = 'Search tabs', keyEvent = { mods = { 'cmd' }, key = 't' } },
+  -- Searching
+  { key = 's', desc = 'Search', keyEvent = { mods = { 'cmd' }, key = 't' } },
+  { key = 'q', desc = 'Quick search', keyEvent = { mods = { 'alt', 'cmd' }, key = 'n' } },
+  { key = 'g', desc = 'ChatGPT', keyEvent = { mods = { 'alt', 'cmd' }, key = 'g' } },
   { key = 'c', desc = 'Command bar', keyEvent = { mods = { 'cmd' }, key = 'l' } },
-  { key = 'n', desc = 'New quick search', keyEvent = { mods = { 'alt', 'cmd' }, key = 'n' } },
-  { key = 'v', desc = 'Split', keyEvent = { mods = { 'ctrl', 'shift' }, key = '=', msDelay = 5, focusApp = true } },
-  { key = 'i', desc = '[Innovecs]', keyEvent = { mods = { 'ctrl' }, key = '3', focusApp = true } },
-  { key = 'm', desc = '[Miro]', keyEvent = { mods = { 'ctrl' }, key = '2', focusApp = true } },
-  { key = 'p', desc = '[Personal]', keyEvent = { mods = { 'ctrl' }, key = '1', focusApp = true } },
+  -- Tab management
+  { key = 'r', desc = 'Reload tab', keyEvent = { mods = { 'cmd' }, key = 'r' } },
+  { key = 'k', desc = 'Kill tab', keyEvent = { mods = { 'cmd' }, key = 'w' } },
+  { key = 'o', desc = 'Open in main window', keyEvent = { mods = { 'cmd' }, key = 'o' } },
+  { key = 'p', desc = 'Pin/unpin', keyEvent = { mods = { 'cmd' }, key = 'd' } },
+  { key = 'n', desc = 'Rename', keyEvent = { mods = { 'ctrl', 'cmd' }, key = 'r' } },
+  -- Splits
+  { key = 'v', desc = 'Vertical split', keyEvent = { mods = { 'ctrl', 'shift' }, key = '=' } },
+  { key = 'x', desc = 'Close split', keyEvent = { mods = { 'ctrl', 'shift' }, key = '-' } },
+  { key = ']', desc = 'Next split', keyEvent = { mods = { 'ctrl', 'shift' }, key = ']' } },
+  { key = '[', desc = 'Previous split', keyEvent = { mods = { 'ctrl', 'shift' }, key = '[' } },
+  -- Miscellaneous
+  { key = 'w', desc = 'Workspaces search', keyEvent = { mods = { 'shift', 'cmd' }, key = 'o' } },
+  { key = 'b', desc = 'Toggle sidebar', keyEvent = { mods = { 'cmd' }, key = 's' } },
+  -- Developer tools
+  { key = 'e', desc = 'Elements', keyEvent = { mods = { 'alt', 'cmd' }, key = 'c' } },
+  { key = 'j', desc = 'JS console', keyEvent = { mods = { 'alt', 'cmd' }, key = 'j' } },
+  { key = 'h', desc = 'HTTP', keyEvent = { mods = { 'ctrl', 'cmd' }, key = 'h' } },
+  -- Workspaces
+  { key = '1', desc = '[Personal]', keyEvent = { mods = { 'ctrl' }, key = '1', focusApp = true } },
+  { key = '2', desc = '[Miro]', keyEvent = { mods = { 'ctrl' }, key = '2', focusApp = true } },
+  { key = '3', desc = '[Innovecs]', keyEvent = { mods = { 'ctrl' }, key = '3', focusApp = true } },
 }, function(mapping)
   local spec = mapping.keyEvent
 
