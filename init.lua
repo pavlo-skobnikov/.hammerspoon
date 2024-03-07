@@ -94,7 +94,7 @@ local listOfApplicationsBindModalSpec = hs.fnutils.map({
   { key = 'r', appName = 'Reminders' },
   { key = 'm', appName = 'Mail' },
   { key = 'n', appName = 'Notes' },
-  { key = 'p', appName = 'NordPass', desc = 'Passwords' },
+  { key = 'p', appName = 'System Settings', desc = 'System Preferences' },
   { key = 's', appName = 'Slack' },
   { key = 't', appName = 'Telegram' },
   { key = 'w', appName = 'Microsoft Teams (work or school)', desc = 'Work messenger' },
