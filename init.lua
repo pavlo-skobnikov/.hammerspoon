@@ -250,6 +250,7 @@ local listOfBrowserModalBindSpec = hs.fnutils.map({
   -- Miscellaneous
   { key = 'w', desc = 'Workspaces search', keyEvent = { mods = { 'shift', 'cmd' }, key = 'o' } },
   { key = 'b', desc = 'Toggle sidebar', keyEvent = { mods = { 'cmd' }, key = 's' } },
+  { key = 'u', desc = 'Copy URL', keyEvent = { mods = { 'shift', 'cmd' }, key = 'c' } },
   -- Developer tools
   { key = 'e', desc = 'Elements', keyEvent = { mods = { 'alt', 'cmd' }, key = 'c' } },
   { key = 'j', desc = 'JS console', keyEvent = { mods = { 'alt', 'cmd' }, key = 'j' } },
