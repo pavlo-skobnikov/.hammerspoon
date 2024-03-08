@@ -87,9 +87,9 @@ local applicationsModal = u.createModal {
 local listOfApplicationsBindModalSpec = hs.fnutils.map({
   -- General applications
   { key = 'a', appName = 'Arc' },
-  { key = 't', appName = 'TG' },
+  { key = 't', appName = 'Telegram', desc = 'TG' },
   -- Productivity
-  { key = 'c', appName = 'Cal' },
+  { key = 'c', appName = 'Calendar', desc = 'Cal' },
   { key = 'r', appName = 'Reminders' },
   { key = 'n', appName = 'Notes' },
   { key = 'e', appName = 'Freeform', desc = 'Freeform' },
@@ -97,7 +97,7 @@ local listOfApplicationsBindModalSpec = hs.fnutils.map({
   { key = 'k', appName = 'Kitty' },
   { key = 'i', appName = 'IntelliJ IDEA', desc = 'IDEA' },
   { key = 'd', appName = 'Docker Desktop', desc = 'Docker' },
-  { key = 'h', appName = 'HSpoon' },
+  { key = 'h', appName = 'Hammerspoon', desc = 'HSpoon' },
   -- Communication
   { key = 'm', appName = 'Mail', desc = 'Email' },
   { key = 's', appName = 'Slack' },
