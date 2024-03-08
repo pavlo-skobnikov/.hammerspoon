@@ -25,7 +25,7 @@ local viewsModal = u.createModal {
 
 local listOfViewsModalBindSpec = hs.fnutils.map({
   -- Occupy 1/2 of a screen
-  -- 
+  --
   { key = 'h', desc = '1/2 ←', windowUnit = { 0, 0, 0.5, 1 } },
   { key = 'l', desc = '1/2 →', windowUnit = { 0.5, 0, 0.5, 1 } },
   { key = 'j', desc = '1/2 ↓', windowUnit = { 0, 0.5, 1, 0.5 } },

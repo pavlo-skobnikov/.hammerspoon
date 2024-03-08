@@ -145,7 +145,9 @@ function MODULE.modalBindSpecToString(listOfSpec)
         local length = string.len(mappings.description)
         local numberOfTabs = math.ceil((16 - length) / 4)
 
-        for _ = 1, numberOfTabs do description = description .. '\t' end
+        for _ = 1, numberOfTabs do
+          description = description .. '\t'
+        end
       end
     end
   end
