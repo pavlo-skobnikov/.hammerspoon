@@ -124,8 +124,8 @@ function MODULE.bindModalMapping(spec)
 end
 
 -- Transforms a modal bind specification into a description string in the format:
--- `key1: description1`
--- `key2: description2`
+-- `key1: description1` `key2: description2`
+-- `key3: description3` `key4: description4`
 -- ...
 -- `keyN: descriptionN`
 ---@param listOfSpec ModalBindSpec[]
@@ -134,8 +134,20 @@ function MODULE.modalBindSpecToString(listOfSpec)
 
   for i, mappings in ipairs(listOfSpec) do
     description = description .. mappings.key .. ':\t' .. mappings.description
+    if i < #listOfSpec then
+      if i % 2 == 0 then
+        description = description .. '\n'
+      else
+        -- Target amount of tabs is 4 (16 spaces).
+        -- We calculate the amount of tabs we want to add after the description
+        -- based on the length of the description. Ceiling the division ensures
+        -- that we always add at least 1 tab.
+        local length = string.len(mappings.description)
+        local numberOfTabs = math.ceil((16 - length) / 4)
 
-    if i < #listOfSpec then description = description .. '\n' end
+        for _ = 1, numberOfTabs do description = description .. '\t' end
+      end
+    end
   end
 
   return description

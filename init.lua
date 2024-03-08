@@ -25,19 +25,20 @@ local viewsModal = u.createModal {
 
 local listOfViewsModalBindSpec = hs.fnutils.map({
   -- Occupy 1/2 of a screen
-  { key = 'h', desc = '1/2 Left', windowUnit = { 0, 0, 0.5, 1 } },
-  { key = 'l', desc = '1/2 Right', windowUnit = { 0.5, 0, 0.5, 1 } },
-  { key = 'j', desc = '1/2 Bottom', windowUnit = { 0, 0.5, 1, 0.5 } },
-  { key = 'k', desc = '1/2 Top', windowUnit = { 0, 0, 1, 0.5 } },
-  -- Occupy 1/3 of a screen
-  { key = 'a', desc = '1/3 Left', windowUnit = { 0, 0, 0.33, 1 } },
-  { key = 's', desc = '1/3 Middle', windowUnit = { 0.33, 0, 0.33, 1 } },
-  { key = 'd', desc = '1/3 Right', windowUnit = { 0.66, 0, 0.33, 1 } },
+  -- 
+  { key = 'h', desc = '1/2 ←', windowUnit = { 0, 0, 0.5, 1 } },
+  { key = 'l', desc = '1/2 →', windowUnit = { 0.5, 0, 0.5, 1 } },
+  { key = 'j', desc = '1/2 ↓', windowUnit = { 0, 0.5, 1, 0.5 } },
+  { key = 'k', desc = '1/2 ↑', windowUnit = { 0, 0, 1, 0.5 } },
   -- Occupy 1/4 of a screen
   { key = 'y', desc = '⌜', windowUnit = { 0, 0, 0.5, 0.5 } },
   { key = 'u', desc = '⌞', windowUnit = { 0, 0.5, 0.5, 0.5 } },
   { key = 'i', desc = '⌟', windowUnit = { 0.5, 0.5, 0.5, 0.5 } },
   { key = 'o', desc = '⌝', windowUnit = { 0.5, 0, 0.5, 0.5 } },
+  -- Occupy 1/3 of a screen
+  { key = 'a', desc = '1/3 | · ·', windowUnit = { 0, 0, 0.33, 1 } },
+  { key = 's', desc = '1/3 · | ·', windowUnit = { 0.33, 0, 0.33, 1 } },
+  { key = 'd', desc = '1/3 · · |', windowUnit = { 0.66, 0, 0.33, 1 } },
   -- Maximize
   { key = 'm', desc = 'Maximize', action = function() hs.window.focusedWindow():maximize() end },
   -- Center
@@ -84,21 +85,27 @@ local applicationsModal = u.createModal {
 }
 
 local listOfApplicationsBindModalSpec = hs.fnutils.map({
+  -- General applications
   { key = 'a', appName = 'Arc' },
-  { key = 'c', appName = 'Calendar' },
-  { key = 'd', appName = 'Docker Desktop', desc = 'Docker' },
-  { key = 'f', appName = 'Finder' },
-  { key = 'h', appName = 'Hammerspoon' },
-  { key = 'i', appName = 'IntelliJ IDEA', desc = 'IDEA' },
-  { key = 'k', appName = 'Kitty' },
+  { key = 't', appName = 'TG' },
+  -- Productivity
+  { key = 'c', appName = 'Cal' },
   { key = 'r', appName = 'Reminders' },
-  { key = 'm', appName = 'Mail' },
   { key = 'n', appName = 'Notes' },
-  { key = 'p', appName = 'System Settings', desc = 'System Preferences' },
+  { key = 'e', appName = 'Freeform', desc = 'Freeform' },
+  -- Developer
+  { key = 'k', appName = 'Kitty' },
+  { key = 'i', appName = 'IntelliJ IDEA', desc = 'IDEA' },
+  { key = 'd', appName = 'Docker Desktop', desc = 'Docker' },
+  { key = 'h', appName = 'HSpoon' },
+  -- Communication
+  { key = 'm', appName = 'Mail', desc = 'Email' },
   { key = 's', appName = 'Slack' },
-  { key = 't', appName = 'Telegram' },
-  { key = 'w', appName = 'Microsoft Teams (work or school)', desc = 'Work messenger' },
+  { key = 'w', appName = 'Microsoft Teams (work or school)', desc = 'Work Teams' },
   { key = 'z', appName = 'zoom.us', desc = 'Zoom' },
+  -- Utilities
+  { key = 'f', appName = 'Finder' },
+  { key = 'p', appName = 'System Settings', desc = 'Preferences' },
 }, function(mapping)
   local description = mapping.desc and mapping.desc or mapping.appName
 
@@ -136,16 +143,16 @@ local utilitiesModal = u.createModal {
 
 local listOfUtilitiesBindModalSpec = hs.fnutils.map({
   { key = 'b', desc = 'Brightness down', systemKey = 'BRIGHTNESS_DOWN' },
-  { key = 'f', desc = 'Fast forward', systemKey = 'FAST' },
   { key = 'g', desc = 'Brightness up', systemKey = 'BRIGHTNESS_UP' },
-  { key = 'l', desc = 'Lock screen', action = hs.caffeinate.lockScreen },
-  { key = 'm', desc = 'Mute', action = function() u.sendSystemKey 'MUTE' end },
-  { key = 'n', desc = 'Next track', systemKey = 'NEXT' },
-  { key = 'p', desc = 'Previous track', systemKey = 'PREVIOUS' },
-  { key = 'r', desc = 'Rewind', systemKey = 'REWIND' },
   { key = 's', desc = 'Sound down', systemKey = 'SOUND_DOWN' },
   { key = 'w', desc = 'Sound up', systemKey = 'SOUND_UP' },
-  { key = 'y', desc = 'Play', action = function() u.sendSystemKey 'PLAY' end },
+  { key = 'f', desc = 'FF', systemKey = 'FAST' },
+  { key = 'r', desc = 'Rewind', systemKey = 'REWIND' },
+  { key = 'n', desc = 'Next track', systemKey = 'NEXT' },
+  { key = 'p', desc = 'Previous track', systemKey = 'PREVIOUS' },
+  { key = 'y', desc = 'Play/start', action = function() u.sendSystemKey 'PLAY' end },
+  { key = 'm', desc = 'Mute sound', action = function() u.sendSystemKey 'MUTE' end },
+  { key = 'l', desc = 'Lock screen', action = hs.caffeinate.lockScreen },
 }, function(mapping)
   local action
   local exitModalAfterAction
@@ -192,9 +199,9 @@ local executeModal = u.createModal {
 
 local listOfExecuteModalBindSpec = hs.fnutils.map(
   {
-    { key = 'k', desc = 'Kill app', action = function() hs.application.frontmostApplication():kill() end },
-    { key = 'r', desc = 'Reload Hammerspoon config', action = hs.reload },
     { key = 'e', desc = 'Emojis', action = function() hs.eventtap.keyStroke({ 'ctrl', 'cmd' }, 'space') end },
+    { key = 'k', desc = 'Kill app', action = function() hs.application.frontmostApplication():kill() end },
+    { key = 'r', desc = 'Reload HS config', action = hs.reload },
   },
   function(mapping)
     return {
@@ -234,12 +241,12 @@ local listOfBrowserModalBindSpec = hs.fnutils.map({
   -- Searching
   { key = 's', desc = 'Search', keyEvent = { mods = { 'cmd' }, key = 't' } },
   { key = 'q', desc = 'Quick search', keyEvent = { mods = { 'alt', 'cmd' }, key = 'n' } },
-  { key = 'g', desc = 'ChatGPT', keyEvent = { mods = { 'alt', 'cmd' }, key = 'g' } },
+  { key = 'g', desc = 'GPT', keyEvent = { mods = { 'alt', 'cmd' }, key = 'g' } },
   { key = 'c', desc = 'Command bar', keyEvent = { mods = { 'cmd' }, key = 'l' } },
   -- Tab management
   { key = 'r', desc = 'Reload tab', keyEvent = { mods = { 'cmd' }, key = 'r' } },
   { key = 'k', desc = 'Kill tab', keyEvent = { mods = { 'cmd' }, key = 'w' } },
-  { key = 'o', desc = 'Open in main window', keyEvent = { mods = { 'cmd' }, key = 'o' } },
+  { key = 'o', desc = 'Open in main', keyEvent = { mods = { 'cmd' }, key = 'o' } },
   { key = 'p', desc = 'Pin/unpin', keyEvent = { mods = { 'cmd' }, key = 'd' } },
   { key = 'n', desc = 'Rename', keyEvent = { mods = { 'ctrl', 'cmd' }, key = 'r' } },
   -- Splits
@@ -303,26 +310,32 @@ local remindersModal = u.createModal {
 }
 
 local listOfRemindersModalBindSpec = hs.fnutils.map({
-  { key = 'n', desc = 'New reminder', keyEventSpec = { mods = { 'cmd' }, key = 'n', focusApp = true } },
-  { key = 'i', desc = 'Indent task', keyEventSpec = { mods = { 'cmd' }, key = ']' } },
-  { key = 'o', desc = 'Outdent task', keyEventSpec = { mods = { 'cmd' }, key = '[' } },
+  -- Create a new task
+  { key = 'n', desc = 'New to-do', keyEventSpec = { mods = { 'cmd' }, key = 'n', focusApp = true } },
+  -- Set due completion dates
+  { key = 't', desc = 'Do today', keyEventSpec = { mods = { 'cmd' }, key = 't' } },
+  { key = 'd', desc = 'Do tomorrow', keyEventSpec = { mods = { 'cmd', 'alt' }, key = 't' } },
+  { key = 'o', desc = 'Overdue->today', keyEventSpec = { mods = { 'cmd', 'ctrl' }, key = 't' } },
+  { key = 'e', desc = 'Do on weekend', keyEventSpec = { mods = { 'cmd' }, key = 'k' } },
+  { key = 'w', desc = 'Do next week', keyEventSpec = { mods = { 'cmd', 'alt' }, key = 'k' } },
+  -- Task management
+  { key = 'i', desc = 'Indent', keyEventSpec = { mods = { 'cmd' }, key = ']' } },
+  { key = 'o', desc = 'Outdent', keyEventSpec = { mods = { 'cmd' }, key = '[' } },
+  { key = 'f', desc = '(Un-)flag', keyEventSpec = { mods = { 'cmd', 'shift' }, key = 'f' } },
+  { key = 'c', desc = '(Un-)complete', keyEventSpec = { mods = { 'cmd', 'shift' }, key = 'c' } },
+  -- Subtasks
   { key = 's', desc = 'Show subtasks', keyEventSpec = { mods = { 'cmd' }, key = 'e' } },
   { key = 'h', desc = 'Hide subtasks', keyEventSpec = { mods = { 'cmd', 'shift' }, key = 'e' } },
-  { key = 'f', desc = 'Flag/unflag task', keyEventSpec = { mods = { 'cmd', 'shift' }, key = 'f' } },
-  { key = 'c', desc = 'Complete/uncomplete task', keyEventSpec = { mods = { 'cmd', 'shift' }, key = 'c' } },
-  { key = '.', desc = 'Show/hide completed tasks', keyEventSpec = { mods = { 'cmd', 'shift' }, key = 'h' } },
-  { key = 'b', desc = 'Toggle sidebar', keyEventSpec = { mods = { 'alt', 'cmd' }, key = 's' } },
-  { key = 't', desc = 'Set due today', keyEventSpec = { mods = { 'cmd' }, key = 't' } },
-  { key = 'd', desc = 'Set due tomorrow', keyEventSpec = { mods = { 'cmd', 'alt' }, key = 't' } },
-  { key = 'o', desc = 'Set overdue to today', keyEventSpec = { mods = { 'cmd', 'ctrl' }, key = 't' } },
-  { key = 'e', desc = 'Set due this/next weekend', keyEventSpec = { mods = { 'cmd' }, key = 'k' } },
-  { key = 'w', desc = 'Set due next week', keyEventSpec = { mods = { 'cmd', 'alt' }, key = 'k' } },
-  { key = '1', desc = 'Go to Today list', keyEventSpec = { mods = { 'cmd' }, key = '1', focusApp = true } },
-  { key = '2', desc = 'Go to Scheduled', keyEventSpec = { mods = { 'cmd' }, key = '2', focusApp = true } },
-  { key = '3', desc = 'Go to All', keyEventSpec = { mods = { 'cmd' }, key = '3', focusApp = true } },
-  { key = '4', desc = 'Go to Flagged', keyEventSpec = { mods = { 'cmd' }, key = '4', focusApp = true } },
-  { key = '5', desc = 'Go to Completed', keyEventSpec = { mods = { 'cmd' }, key = '5', focusApp = true } },
-  { key = '6', desc = 'Go to Inbox', keyEventSpec = { mods = { 'cmd' }, key = '6', focusApp = true } },
+  -- Toggle views
+  { key = '.', desc = 'Tgl completed', keyEventSpec = { mods = { 'cmd', 'shift' }, key = 'h' } },
+  { key = 'b', desc = 'Tgl sidebar', keyEventSpec = { mods = { 'alt', 'cmd' }, key = 's' } },
+  -- Task lists
+  { key = '1', desc = 'Today', keyEventSpec = { mods = { 'cmd' }, key = '1', focusApp = true } },
+  { key = '2', desc = 'Scheduled', keyEventSpec = { mods = { 'cmd' }, key = '2', focusApp = true } },
+  { key = '3', desc = 'All', keyEventSpec = { mods = { 'cmd' }, key = '3', focusApp = true } },
+  { key = '4', desc = 'Flagged', keyEventSpec = { mods = { 'cmd' }, key = '4', focusApp = true } },
+  { key = '5', desc = 'Completed', keyEventSpec = { mods = { 'cmd' }, key = '5', focusApp = true } },
+  { key = '6', desc = 'Inbox', keyEventSpec = { mods = { 'cmd' }, key = '6', focusApp = true } },
 }, function(mapping)
   local spec = mapping.keyEventSpec
 
@@ -422,23 +435,26 @@ local notesModal = u.createModal {
 }
 
 local listOfNotesModalBindSpec = hs.fnutils.map({
-  { key = 'n', desc = 'Create note', keyEventSpec = { mods = { 'cmd' }, key = 'n', focusApp = true } },
-  { key = 'd', desc = 'Duplicate note', keyEventSpec = { mods = { 'cmd' }, key = 'd' } },
+  -- Note management
+  { key = 'n', desc = 'New empty', keyEventSpec = { mods = { 'cmd' }, key = 'n', focusApp = true } },
+  { key = 'd', desc = 'Duplicate', keyEventSpec = { mods = { 'cmd' }, key = 'd' } },
+  -- Views
   { key = '1', desc = 'List view', keyEventSpec = { mods = { 'cmd' }, key = '1', focusApp = true } },
   { key = '2', desc = 'Gallery view', keyEventSpec = { mods = { 'cmd' }, key = '2', focusApp = true } },
   { key = '3', desc = 'Attachments', keyEventSpec = { mods = { 'cmd' }, key = '3', focusApp = true } },
   { key = 'b', desc = 'Show/hide folders bar', keyEventSpec = { mods = { 'cmd', 'alt' }, key = 's' } },
-  { key = 'f', desc = 'Find note', keyEventSpec = { mods = { 'alt', 'cmd' }, key = 'f', focusApp = true } },
-  { key = 'a', desc = 'Add a table', keyEventSpec = { mods = { 'alt', 'cmd' }, key = 't' } },
-  { key = 'l', desc = 'Insert a link', keyEventSpec = { mods = { 'cmd' }, key = 'k' } },
-  { key = 't', desc = 'Apply Title format', keyEventSpec = { mods = { 'shift', 'cmd' }, key = 't' } },
-  { key = 'h', desc = 'Apply Heading format', keyEventSpec = { mods = { 'shift', 'cmd' }, key = 'h' } },
-  { key = 's', desc = 'Apply Subheading format', keyEventSpec = { mods = { 'shift', 'cmd' }, key = 'j' } },
-  { key = 'p', desc = 'Apply plain text format', keyEventSpec = { mods = { 'shift', 'cmd' }, key = 'b' } },
-  { key = 'm', desc = 'Apply Monospaced format', keyEventSpec = { mods = { 'shift', 'cmd' }, key = 'm' } },
-  { key = 'q', desc = 'Apply Block Quote format', keyEventSpec = { mods = { 'cmd' }, key = "'" } },
-  { key = 'c', desc = 'Create a checklist', keyEventSpec = { mods = { 'shift', 'cmd' }, key = 'l' } },
-  { key = 'u', desc = 'Mark/unmark a checklist item', keyEventSpec = { mods = { 'shift', 'cmd' }, key = 'u' } },
+  -- Actions
+  { key = 'f', desc = 'Find notes', keyEventSpec = { mods = { 'alt', 'cmd' }, key = 'f', focusApp = true } },
+  { key = 'a', desc = 'Add table', keyEventSpec = { mods = { 'alt', 'cmd' }, key = 't' } },
+  { key = 'l', desc = 'Insert link', keyEventSpec = { mods = { 'cmd' }, key = 'k' } },
+  { key = 't', desc = 'Title fmt', keyEventSpec = { mods = { 'shift', 'cmd' }, key = 't' } },
+  { key = 'h', desc = 'Heading fmt', keyEventSpec = { mods = { 'shift', 'cmd' }, key = 'h' } },
+  { key = 's', desc = 'Subheading fmt', keyEventSpec = { mods = { 'shift', 'cmd' }, key = 'j' } },
+  { key = 'p', desc = 'Plain text fmt', keyEventSpec = { mods = { 'shift', 'cmd' }, key = 'b' } },
+  { key = 'm', desc = 'Monospaced fmt', keyEventSpec = { mods = { 'shift', 'cmd' }, key = 'm' } },
+  { key = 'q', desc = 'Block Quote fmt', keyEventSpec = { mods = { 'cmd' }, key = "'" } },
+  { key = 'u', desc = '(Un-)mark item', keyEventSpec = { mods = { 'shift', 'cmd' }, key = 'u' } },
+  { key = 'c', desc = 'Create a clist', keyEventSpec = { mods = { 'shift', 'cmd' }, key = 'l' } },
   { key = 'k', desc = 'Clist item up', keyEventSpec = { mods = { 'ctrl', 'cmd' }, key = 'up' }, exitMod = false },
   { key = 'j', desc = 'Clist item down', keyEventSpec = { mods = { 'ctrl', 'cmd' }, key = 'down' }, exitMod = false },
 }, function(mapping)
@@ -485,10 +501,10 @@ local screenshotModal = u.createModal {
 }
 
 local listOfScreenshotModalBindSpec = hs.fnutils.map({
-  { key = 'u', mods = { 'cmd', 'shift' }, executeKey = '3', desc = 'Screen to desktop' },
-  { key = 'i', mods = { 'cmd', 'shift' }, executeKey = '4', desc = 'Area to desktop' },
-  { key = 'j', mods = { 'ctrl', 'cmd', 'shift' }, executeKey = '3', desc = 'Screen and copy' },
-  { key = 'k', mods = { 'ctrl', 'cmd', 'shift' }, executeKey = '4', desc = 'Area and copy' },
+  { key = 'u', mods = { 'cmd', 'shift' }, executeKey = '3', desc = 'Screen-save' },
+  { key = 'i', mods = { 'cmd', 'shift' }, executeKey = '4', desc = 'Area-save' },
+  { key = 'j', mods = { 'ctrl', 'cmd', 'shift' }, executeKey = '3', desc = 'Screen-copy' },
+  { key = 'k', mods = { 'ctrl', 'cmd', 'shift' }, executeKey = '4', desc = 'Area-copy' },
   { key = 'r', mods = { 'cmd', 'shift' }, executeKey = '5', desc = 'Record screen' },
 }, function(mapping)
   return {
@@ -522,13 +538,13 @@ u.bindModalMapping {
 local listOfLeaderModalBindSpec = hs.fnutils.map({
   { key = 'a', description = '+applications', modal = applicationsModal, modalBindings = applicationsModalBindings },
   { key = 'b', description = '+browser', modal = browserModal, modalBindings = browserModalBindings },
-  { key = 'c', description = '+calendar', modal = calendarModal, modalBindings = calendarModalBindings },
-  { key = 'e', description = '+execute', modal = executeModal, modalBindings = executeModalBindings },
   { key = 'n', description = '+notes', modal = notesModal, modalBindings = notesModalBindings },
+  { key = 'c', description = '+calendar', modal = calendarModal, modalBindings = calendarModalBindings },
   { key = 'r', description = '+reminders', modal = remindersModal, modalBindings = remindersModalBindings },
+  { key = 'v', description = '+views', modal = viewsModal, modalBindings = viewsModalBindings },
+  { key = 'e', description = '+exec', modal = executeModal, modalBindings = executeModalBindings },
   { key = 's', description = '+screenshot', modal = screenshotModal, modalBindings = screenshotModalBindings },
   { key = 'u', description = '+utilities', modal = utilitiesModal, modalBindings = utilitiesModalBindings },
-  { key = 'v', description = '+views', modal = viewsModal, modalBindings = viewsModalBindings },
 }, function(modal)
   return {
     modal = leaderModal,
