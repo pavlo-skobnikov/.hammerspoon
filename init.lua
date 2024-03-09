@@ -264,8 +264,8 @@ local listOfBrowserModalBindSpec = hs.fnutils.map({
   { key = 'h', desc = 'HTTP', keyEvent = { mods = { 'ctrl', 'cmd' }, key = 'h' } },
   -- Workspaces
   { key = 'l', desc = '[Personal]', keyEvent = { mods = { 'ctrl' }, key = '1', focusApp = true } },
-  { key = 'i', desc = '[Miro]', keyEvent = { mods = { 'ctrl' }, key = '2', focusApp = true } },
-  { key = 'm', desc = '[Innovecs]', keyEvent = { mods = { 'ctrl' }, key = '3', focusApp = true } },
+  { key = 'm', desc = '[Miro]', keyEvent = { mods = { 'ctrl' }, key = '2', focusApp = true } },
+  { key = 'i', desc = '[Innovecs]', keyEvent = { mods = { 'ctrl' }, key = '3', focusApp = true } },
 }, function(mapping)
   local spec = mapping.keyEvent
 
