@@ -201,7 +201,10 @@ local listOfExecuteModalBindSpec = hs.fnutils.map(
   {
     { key = 'e', desc = 'Emojis', action = function() hs.eventtap.keyStroke({ 'ctrl', 'cmd' }, 'space') end },
     { key = 'k', desc = 'Kill app', action = function() hs.application.frontmostApplication():kill() end },
-    { key = 'r', desc = 'Reload HS config', action = hs.reload },
+    { key = 'r', desc = 'Reload HS cfg', action = hs.reload },
+    -- Very powerful command => basically, the search shortcut for most of the apps
+    -- It allows to search up any command in the app, even if the app doesn't have a "command" bar
+    { key = 'o', desc = 'Open cmd search', action = function() hs.eventtap.keyStroke({ 'shift', 'cmd' }, '/') end },
   },
   function(mapping)
     return {
