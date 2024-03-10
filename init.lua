@@ -261,6 +261,7 @@ local listOfBrowserModalBindSpec = hs.fnutils.map({
   { key = 'j', desc = 'JS console', keyEvent = { mods = { 'alt', 'cmd' }, key = 'c' } },
   { key = 'p', desc = 'Page source', keyEvent = { mods = { 'alt', 'cmd' }, key = 'u' } },
   { key = 'd', desc = 'Dev. timeline', keyEvent = { mods = { 'alt', 'shift', 'cmd' }, key = 't' } },
+  { key = 'e', desc = 'Okta extension', keyEvent = { mods = { 'shift', 'cmd' }, key = 'o' } },
 }, function(mapping)
   local spec = mapping.keyEvent
 
