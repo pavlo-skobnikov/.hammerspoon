@@ -38,7 +38,7 @@ function MODULE.sendKeyToApplication(spec)
   local application = hs.application.get(spec.appName)
 
   if application then
-    if spec.focusApp then application:setFrontmost() end
+    hs.application.launchOrFocus(spec.appName)
 
     local modifiers = spec.mods and spec.mods or {}
     local interval = spec.msDelay and spec.msDelay * 1000 or 0

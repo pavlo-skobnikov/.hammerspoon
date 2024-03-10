@@ -274,7 +274,6 @@ local listOfBrowserModalBindSpec = hs.fnutils.map({
         key = spec.key,
         msDelay = spec.msDelay,
         appName = 'Safari',
-        focusApp = true
       }
     end,
     exitModalAfterAction = mapping.exitMod ~= false,
@@ -306,7 +305,7 @@ local remindersModal = u.createModal {
 
 local listOfRemindersModalBindSpec = hs.fnutils.map({
   -- Create a new task
-  { key = 'n', desc = 'New to-do', keyEventSpec = { mods = { 'cmd' }, key = 'n', focusApp = true } },
+  { key = 'n', desc = 'New to-do', keyEventSpec = { mods = { 'cmd' }, key = 'n' } },
   -- Set due completion dates
   { key = 't', desc = 'Do today', keyEventSpec = { mods = { 'cmd' }, key = 't' } },
   { key = 'd', desc = 'Do tomorrow', keyEventSpec = { mods = { 'cmd', 'alt' }, key = 't' } },
@@ -325,12 +324,12 @@ local listOfRemindersModalBindSpec = hs.fnutils.map({
   { key = '.', desc = 'Tgl completed', keyEventSpec = { mods = { 'cmd', 'shift' }, key = 'h' } },
   { key = 'b', desc = 'Tgl sidebar', keyEventSpec = { mods = { 'alt', 'cmd' }, key = 's' } },
   -- Task lists
-  { key = '1', desc = 'Today', keyEventSpec = { mods = { 'cmd' }, key = '1', focusApp = true } },
-  { key = '2', desc = 'Scheduled', keyEventSpec = { mods = { 'cmd' }, key = '2', focusApp = true } },
-  { key = '3', desc = 'All', keyEventSpec = { mods = { 'cmd' }, key = '3', focusApp = true } },
-  { key = '4', desc = 'Flagged', keyEventSpec = { mods = { 'cmd' }, key = '4', focusApp = true } },
-  { key = '5', desc = 'Completed', keyEventSpec = { mods = { 'cmd' }, key = '5', focusApp = true } },
-  { key = '6', desc = 'Inbox', keyEventSpec = { mods = { 'cmd' }, key = '6', focusApp = true } },
+  { key = '1', desc = 'Today', keyEventSpec = { mods = { 'cmd' }, key = '1' } },
+  { key = '2', desc = 'Scheduled', keyEventSpec = { mods = { 'cmd' }, key = '2' } },
+  { key = '3', desc = 'All', keyEventSpec = { mods = { 'cmd' }, key = '3' } },
+  { key = '4', desc = 'Flagged', keyEventSpec = { mods = { 'cmd' }, key = '4' } },
+  { key = '5', desc = 'Completed', keyEventSpec = { mods = { 'cmd' }, key = '5' } },
+  { key = '6', desc = 'Inbox', keyEventSpec = { mods = { 'cmd' }, key = '6' } },
 }, function(mapping)
   local spec = mapping.keyEventSpec
 
@@ -376,14 +375,14 @@ local calendarModal = u.createModal {
 
 local listOfCalendarModalBindSpec = hs.fnutils.map({
   -- Calendar shortcuts
-  { key = 't', desc = 'Today', keyEventSpec = { mods = { 'cmd' }, key = 't', focusApp = true } },
-  { key = 's', desc = 'Specific date', keyEventSpec = { mods = { 'cmd', 'shift' }, key = 't', focusApp = true } },
-  { key = 'd', desc = 'Day view', keyEventSpec = { mods = { 'cmd' }, key = '1', focusApp = true } },
-  { key = 'w', desc = 'Week view', keyEventSpec = { mods = { 'cmd' }, key = '2', focusApp = true } },
-  { key = 'm', desc = 'Month view', keyEventSpec = { mods = { 'cmd' }, key = '3', focusApp = true } },
-  { key = 'y', desc = 'Year view', keyEventSpec = { mods = { 'cmd' }, key = '4', focusApp = true } },
+  { key = 't', desc = 'Today', keyEventSpec = { mods = { 'cmd' }, key = 't' } },
+  { key = 's', desc = 'Specific date', keyEventSpec = { mods = { 'cmd', 'shift' }, key = 't' } },
+  { key = 'd', desc = 'Day view', keyEventSpec = { mods = { 'cmd' }, key = '1' } },
+  { key = 'w', desc = 'Week view', keyEventSpec = { mods = { 'cmd' }, key = '2' } },
+  { key = 'm', desc = 'Month view', keyEventSpec = { mods = { 'cmd' }, key = '3' } },
+  { key = 'y', desc = 'Year view', keyEventSpec = { mods = { 'cmd' }, key = '4' } },
   -- Event shortcuts
-  { key = 'n', desc = 'New event', keyEventSpec = { mods = { 'cmd' }, key = 'n', focusApp = true } },
+  { key = 'n', desc = 'New event', keyEventSpec = { mods = { 'cmd' }, key = 'n' } },
   { key = 'e', desc = 'Edit event', keyEventSpec = { mods = { 'cmd' }, key = 'e' } },
   { key = 'i', desc = 'Event/calendar info', keyEventSpec = { mods = { 'cmd' }, key = 'i' } },
 }, function(mapping)
@@ -431,15 +430,15 @@ local notesModal = u.createModal {
 
 local listOfNotesModalBindSpec = hs.fnutils.map({
   -- Note management
-  { key = 'n', desc = 'New empty', keyEventSpec = { mods = { 'cmd' }, key = 'n', focusApp = true } },
+  { key = 'n', desc = 'New empty', keyEventSpec = { mods = { 'cmd' }, key = 'n' } },
   { key = 'd', desc = 'Duplicate', keyEventSpec = { mods = { 'cmd' }, key = 'd' } },
   -- Views
-  { key = '1', desc = 'List view', keyEventSpec = { mods = { 'cmd' }, key = '1', focusApp = true } },
-  { key = '2', desc = 'Gallery view', keyEventSpec = { mods = { 'cmd' }, key = '2', focusApp = true } },
-  { key = '3', desc = 'Attachments', keyEventSpec = { mods = { 'cmd' }, key = '3', focusApp = true } },
+  { key = '1', desc = 'List view', keyEventSpec = { mods = { 'cmd' }, key = '1' } },
+  { key = '2', desc = 'Gallery view', keyEventSpec = { mods = { 'cmd' }, key = '2' } },
+  { key = '3', desc = 'Attachments', keyEventSpec = { mods = { 'cmd' }, key = '3' } },
   { key = 'b', desc = 'Show/hide folders bar', keyEventSpec = { mods = { 'cmd', 'alt' }, key = 's' } },
   -- Actions
-  { key = 'f', desc = 'Find notes', keyEventSpec = { mods = { 'alt', 'cmd' }, key = 'f', focusApp = true } },
+  { key = 'f', desc = 'Find notes', keyEventSpec = { mods = { 'alt', 'cmd' }, key = 'f' } },
   { key = 'a', desc = 'Add table', keyEventSpec = { mods = { 'alt', 'cmd' }, key = 't' } },
   { key = 'l', desc = 'Insert link', keyEventSpec = { mods = { 'cmd' }, key = 'k' } },
   { key = 't', desc = 'Title fmt', keyEventSpec = { mods = { 'shift', 'cmd' }, key = 't' } },
