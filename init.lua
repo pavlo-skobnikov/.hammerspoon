@@ -86,7 +86,7 @@ local applicationsModal = u.createModal {
 
 local listOfApplicationsBindModalSpec = hs.fnutils.map({
   -- General applications
-  { key = 'a', appName = 'Arc' },
+  { key = 'b', appName = 'Safari', desc = 'Browser' },
   { key = 't', appName = 'Telegram', desc = 'TG' },
   -- Productivity
   { key = 'c', appName = 'Calendar', desc = 'Cal' },
@@ -241,34 +241,26 @@ local browserModal = u.createModal {
 }
 
 local listOfBrowserModalBindSpec = hs.fnutils.map({
-  -- Searching
-  { key = 's', desc = 'Search', keyEvent = { mods = { 'cmd' }, key = 't' } },
-  { key = 'q', desc = 'Quick search', keyEvent = { mods = { 'alt', 'cmd' }, key = 'n' } },
-  { key = 'g', desc = 'GPT', keyEvent = { mods = { 'alt', 'cmd' }, key = 'g' } },
-  { key = 'c', desc = 'Command bar', keyEvent = { mods = { 'cmd' }, key = 'l' } },
-  -- Tab management
-  { key = 'r', desc = 'Reload tab', keyEvent = { mods = { 'cmd' }, key = 'r' } },
-  { key = 'k', desc = 'Kill tab', keyEvent = { mods = { 'cmd' }, key = 'w' } },
-  { key = 'o', desc = 'Open in main', keyEvent = { mods = { 'cmd' }, key = 'o' } },
-  { key = 'p', desc = 'Pin/unpin', keyEvent = { mods = { 'cmd' }, key = 'd' } },
-  { key = 'n', desc = 'Rename', keyEvent = { mods = { 'ctrl', 'cmd' }, key = 'r' } },
-  -- Splits
-  { key = 'v', desc = 'Vertical split', keyEvent = { mods = { 'ctrl', 'shift' }, key = '=' } },
-  { key = 'x', desc = 'Close split', keyEvent = { mods = { 'ctrl', 'shift' }, key = '-' } },
-  { key = ']', desc = 'Next split', keyEvent = { mods = { 'ctrl', 'shift' }, key = ']' } },
-  { key = '[', desc = 'Previous split', keyEvent = { mods = { 'ctrl', 'shift' }, key = '[' } },
+  -- Tabs
+  { key = 'n', desc = 'New ', keyEvent = { mods = { 'cmd' }, key = 't' } },
+  { key = 'c', desc = 'Close', keyEvent = { mods = { 'cmd' }, key = 'w' } },
+  { key = 'r', desc = 'Reload', keyEvent = { mods = { 'cmd' }, key = 'r' } },
+  { key = 'o', desc = 'Reopen', keyEvent = { mods = { 'shift', 'cmd' }, key = 't' } },
+  { key = 'f', desc = 'Favourite', keyEvent = { mods = { 'cmd' }, key = 'd' } },
+  { key = 's', desc = 'Search', keyEvent = { mods = { 'shift', 'cmd' }, key = 'a' } },
+  { key = 'h', desc = 'History', keyEvent = { mods = { 'cmd' }, key = 'y' } },
+  { key = 'm', desc = 'Reader mode', keyEvent = { mods = { 'shift', 'cmd' }, key = 'r' } },
   -- Miscellaneous
-  { key = 'w', desc = 'Workspaces search', keyEvent = { mods = { 'shift', 'cmd' }, key = 'o' } },
-  { key = 'b', desc = 'Toggle sidebar', keyEvent = { mods = { 'cmd' }, key = 's' } },
-  { key = 'u', desc = 'Copy URL', keyEvent = { mods = { 'shift', 'cmd' }, key = 'c' } },
+  { key = 'u', desc = 'Focus URL', keyEvent = { mods = { 'cmd' }, key = 'l' } },
+  { key = 'b', desc = 'Toggle sidebar', keyEvent = { mods = { 'shift', 'cmd' }, key = 'l' } },
+  -- Tab groups
+  { key = ']', desc = 'Next tgroup', keyEvent = { mods = { 'shift', 'cmd' }, key = 'down' } },
+  { key = '[', desc = 'Prev tgroup', keyEvent = { mods = { 'shift', 'cmd' }, key = 'up' } },
   -- Developer tools
-  { key = 'e', desc = 'Elements', keyEvent = { mods = { 'alt', 'cmd' }, key = 'c' } },
-  { key = 'j', desc = 'JS console', keyEvent = { mods = { 'alt', 'cmd' }, key = 'j' } },
-  { key = 'h', desc = 'HTTP', keyEvent = { mods = { 'ctrl', 'cmd' }, key = 'h' } },
-  -- Workspaces
-  { key = 'l', desc = '[Personal]', keyEvent = { mods = { 'ctrl' }, key = '1', focusApp = true } },
-  { key = 'm', desc = '[Miro]', keyEvent = { mods = { 'ctrl' }, key = '2', focusApp = true } },
-  { key = 'i', desc = '[Innovecs]', keyEvent = { mods = { 'ctrl' }, key = '3', focusApp = true } },
+  { key = 'i', desc = 'Web inspector', keyEvent = { mods = { 'alt', 'cmd' }, key = 'i' } },
+  { key = 'j', desc = 'JS console', keyEvent = { mods = { 'alt', 'cmd' }, key = 'c' } },
+  { key = 'p', desc = 'Page source', keyEvent = { mods = { 'alt', 'cmd' }, key = 'u' } },
+  { key = 'd', desc = 'Dev. timeline', keyEvent = { mods = { 'alt', 'shift', 'cmd' }, key = 't' } },
 }, function(mapping)
   local spec = mapping.keyEvent
 
@@ -281,8 +273,8 @@ local listOfBrowserModalBindSpec = hs.fnutils.map({
         mods = spec.mods,
         key = spec.key,
         msDelay = spec.msDelay,
-        appName = 'Arc',
-        focusApp = spec.focusApp,
+        appName = 'Safari',
+        focusApp = true
       }
     end,
     exitModalAfterAction = mapping.exitMod ~= false,
