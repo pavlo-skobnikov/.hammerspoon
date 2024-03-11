@@ -1,5 +1,10 @@
 # Personal Hammerspoon Configuration README
 
+> **> [!IMPORTANT]**
+> The repository is archived, as I've decided to stop using Hammerspoon in favor of simple
+> configuration via Karabiner-Elements and native macOS Shortcuts. The repository is kept for
+> reference purposes only.
+
 <!--toc:start-->
 - [Personal Hammerspoon Configuration README](#personal-hammerspoon-configuration-readme)
   - [Overview](#overview)
